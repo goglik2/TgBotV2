@@ -8,6 +8,8 @@ bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
 users = []
 c_users = 0
 
+
+
 @bot.message_handler(commands=['mg'])    #команда только для разработчиков, нужна для просмотра информации о чате и пользователе
 def mg(message):
     bot.send_message(message.chat.id, message)
@@ -25,7 +27,7 @@ def start(message):
         global c_users
         c_users += 1
 
-    bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name} {message.from_user.last_name}')
+    bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name}')
     markup = types.ReplyKeyboardMarkup()
     btn1 = types.KeyboardButton('Расписание для учеников')   #имена для кнопок
     btn2 = types.KeyboardButton('Помощь')        #имена для кнопок
@@ -65,21 +67,21 @@ def on_click(message):
     elif message.text == 'Расписание для учителей':
         bot.send_message(message.chat.id, 'Расписание для учителей')
     elif message.text == 'Помощь':
-        bot.send_message(message.chat.id, f'Список команд для этого бота:')
         bot.send_message(message.chat.id, '/start - перезапустить')
         bot.send_message(message.chat.id, '/help - список команд')
-        bot.send_message(message.chat.id, '/rasp - расписание')
+        bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
+        bot.send_message(message.chat.id, '/raspy - расписание для учителей')
     elif message.text == 'Разработчик':
         bot.send_message(message.chat.id, 'Это Гриша сделал')
     elif message.text == 'Перезапустить':
         user_id = [message.from_user.first_name, message.from_user.last_name,
-                   message.from_user.username]  # Заполнение списка всех пользователей бота
+        message.from_user.username]  # Заполнение списка всех пользователей бота
         if user_id not in users:
             users.append(user_id)
             global c_users
             c_users += 1
 
-        bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name} {message.from_user.last_name}')
+        bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name}')
         markup = types.ReplyKeyboardMarkup()
         btn1 = types.KeyboardButton('Расписание для учеников')  # имена для кнопок
         btn2 = types.KeyboardButton('Помощь')  # имена для кнопок
