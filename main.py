@@ -2,13 +2,23 @@ import telebot
 from telebot import types
 import webbrowser
 import sqlite3
+import openpyxl
 
 bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
 
 users = []
 c_users = 0
+rasp = openpyxl.open('rasp.xlsx', read_only=True)
+sheet1 = rasp.active
+raspy = openpyxl.open('raspy.xlsx', read_only=True)
+sheet12 = rasp.active
 
 
+#доделать
+@bot.message_handler(commands=['post6741433926'])
+def post(message):
+    bot.send_message(message.chat.id, f'Отправьте файл с расписанием для ученика')
+#доделать
 
 @bot.message_handler(commands=['mg'])    #команда только для разработчиков, нужна для просмотра информации о чате и пользователе
 def mg(message):
@@ -55,18 +65,27 @@ def info(message):
 @bot.message_handler(commands=['rasp'])
 def rasp(message):
     bot.send_message(message.chat.id, 'Расписание для учеников')
+    rasp = open('./rasp.xlsx', 'rb')
+    bot.send_document(message.chat.id, rasp)
 
 @bot.message_handler(commands=['raspy'])
 def raspy(message):
     bot.send_message(message.chat.id, 'Расписание для учителей')
+    raspy = open('./raspy.xlsx', 'rb')
+    bot.send_document(message.chat.id, raspy)
 
 @bot.message_handler(func=lambda message: True)
 def on_click(message):
     if message.text == 'Расписание для учеников':
         bot.send_message(message.chat.id, 'Расписание для учеников')
+        rasp = open('./rasp.xlsx', 'rb')
+        bot.send_document(message.chat.id, rasp)
     elif message.text == 'Расписание для учителей':
         bot.send_message(message.chat.id, 'Расписание для учителей')
+        raspy = open('./raspy.xlsx', 'rb')
+        bot.send_document(message.chat.id, raspy)
     elif message.text == 'Помощь':
+        bot.send_message(message.chat.id, f'Список команд для этого бота:')
         bot.send_message(message.chat.id, '/start - перезапустить')
         bot.send_message(message.chat.id, '/help - список команд')
         bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
