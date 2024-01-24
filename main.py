@@ -59,65 +59,43 @@ def start(message):
     markup.row(btn1, btn3)     #Создаёт кнопку под вводом 1 ряд
     markup.row(btn2)     #Создаёт кнопку под вводом 2 ряд
     markup.row(btn4)     #Создаёт кнопку под вводом 3 ряд
-    bot.send_message(message.chat.id, f'Список команд для этого бота:', reply_markup=markup)
-    bot.send_message(message.chat.id, '/start - перезапустить')
-    bot.send_message(message.chat.id, '/help - список команд')
-    bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
-    bot.send_message(message.chat.id, '/raspy - расписание для учителей')
+    bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей', reply_markup=markup)
 
 
 
-@bot.message_handler(commands=['help'])
+@bot.message_handler(commands=['help'])        #при вводе команды help вылезает сообщение
 def info(message):
-    bot.send_message(message.chat.id, f'Список команд для этого бота:')
-    bot.send_message(message.chat.id, '/start - перезапустить')
-    bot.send_message(message.chat.id, '/help - список команд')
-    bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
-    bot.send_message(message.chat.id, '/raspy - расписание для учителей')
+    bot.send_message(message.chat.id,f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей')
 
-@bot.message_handler(commands=['rasp'])
+
+@bot.message_handler(commands=['rasp'])        #при вводе команды rasp вылезает сообщение
 def rasp(message):
     markup_inline = types.InlineKeyboardMarkup()
-    kbtn42 = types.InlineKeyboardButton('5 класс', callback_data='5')
+    kbtn42 = types.InlineKeyboardButton('5 класс', callback_data='5')      #даём имя кнопке, присваиваем ей класс и коллбэк дату
     kbtn43 = types.InlineKeyboardButton('6 класс', callback_data='6')
     kbtn44 = types.InlineKeyboardButton('7 класс', callback_data='7')
     kbtn45 = types.InlineKeyboardButton('8 класс', callback_data='8')
     kbtn46 = types.InlineKeyboardButton('9 класс', callback_data='9')
     kbtn47 = types.InlineKeyboardButton('10 класс', callback_data='10')
     kbtn48 = types.InlineKeyboardButton('11 класс', callback_data='11')
-    markup_inline.row(kbtn42, kbtn43)
+    markup_inline.row(kbtn42, kbtn43)             #собсна выводим то шо сделали
     markup_inline.row(kbtn44, kbtn45)
     markup_inline.row(kbtn46)
     markup_inline.row(kbtn47)
     markup_inline.row(kbtn48)
     bot.send_message(message.chat.id, 'Выберите класс:', reply_markup= markup_inline)
 
-    #for i in range(2, max_rows_rasp // 2 + 1):
-        #sku = sheet1.cell(row=i * 2, column=abo * kcla).value
-        #clas = sheet1.cell(row=3, column=abo * kcla).value
-        #global proj
-       #proj += 1
-
-        #if not sku:
-            #sku = 'нет урока'
-
-        #bot.send_message(message.chat.id, f'{proj}, {sku}')
-    #bot.send_message(message.chat.id, f'{clas}')
-    #proj = 0
-    # rasp = open('./rasp.xlsx', 'rb')
-    # bot.send_document(message.chat.id, rasp)
-
-@bot.message_handler(commands=['raspy'])
+@bot.message_handler(commands=['raspy'])         #при вводе команды raspy вылезает сообщение
 def raspy(message):
-    bot.send_message(message.chat.id, 'Расписание для учителей')
-    raspy = open('./raspy.xlsx', 'rb')
-    bot.send_document(message.chat.id, raspy)
+    bot.send_message(message.chat.id, 'Расписание для учителей')      #отправляется сообщение
+    raspy = open('./raspy.xlsx', 'rb')            #файл открывается
+    bot.send_document(message.chat.id, raspy)      #и выводится
 
-@bot.message_handler(func=lambda message: True)
-def on_click(message):
+@bot.message_handler(func=lambda message: True)         #постоянная работа функции
+def on_click(message):            #по сути дублирование всех команд но для работы нужна кнопка
     if message.text == 'Расписание для учеников':
         markup_inline = types.InlineKeyboardMarkup()
-        kbtn42 = types.InlineKeyboardButton('5 класс', callback_data='5')
+        kbtn42 = types.InlineKeyboardButton('5 класс', callback_data='5')        #имя,тип,текст и кол бэк дата
         kbtn43 = types.InlineKeyboardButton('6 класс', callback_data='6')
         kbtn44 = types.InlineKeyboardButton('7 класс', callback_data='7')
         kbtn45 = types.InlineKeyboardButton('8 класс', callback_data='8')
@@ -129,34 +107,17 @@ def on_click(message):
         markup_inline.row(kbtn46)
         markup_inline.row(kbtn47)
         markup_inline.row(kbtn48)
-        bot.send_message(message.chat.id, 'Выберите класс:', reply_markup = markup_inline)
+        bot.send_message(message.chat.id, 'Выберите класс:', reply_markup = markup_inline)     #воводятся с этим текстом
 
-        #for i in range(2, max_rows_rasp // 2 + 1):
-            #sku = sheet1.cell(row=i * 2, column=abo * kcla).value
-            #clas = sheet1.cell(row=3, column=abo * kcla).value
-            #global proj
-            #proj += 1
-
-            #if not sku:
-                #sku = 'нет урока'
-
-            #bot.send_message(message.chat.id, f'{proj}, {sku}')
-        #bot.send_message(message.chat.id, f'{clas}')
-        #proj = 0
-        # rasp = open('./rasp.xlsx', 'rb')
-        # bot.send_document(message.chat.id, rasp)
     elif message.text == 'Расписание для учителей':
         bot.send_message(message.chat.id, 'Расписание для учителей')
         raspy = open('./raspy.xlsx', 'rb')
         bot.send_document(message.chat.id, raspy)
     elif message.text == 'Помощь':
-        bot.send_message(message.chat.id, f'Список команд для этого бота:')
-        bot.send_message(message.chat.id, '/start - перезапустить')
-        bot.send_message(message.chat.id, '/help - список команд')
-        bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
-        bot.send_message(message.chat.id, '/raspy - расписание для учителей')
+        bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей')
+
     elif message.text == 'Разработчик':
-        bot.send_message(message.chat.id, 'Это Гриша сделал')
+        bot.send_message(message.chat.id, 'Это Гриша сделал(и немного вова)')
     elif message.text == 'Перезапустить':
         user_id = [message.from_user.first_name, message.from_user.last_name,
         message.from_user.username]  # Заполнение списка всех пользователей бота
@@ -174,17 +135,12 @@ def on_click(message):
         markup.row(btn1, btn3)  # Создаёт кнопку под вводом 1 ряд
         markup.row(btn2)  # Создаёт кнопку под вводом 2 ряд
         markup.row(btn4)  # Создаёт кнопку под вводом 3 ряд
-        bot.send_message(message.chat.id, f'Список команд для этого бота:', reply_markup=markup)
-        bot.send_message(message.chat.id, '/start - перезапустить')
-        bot.send_message(message.chat.id, '/help - список команд')
-        bot.send_message(message.chat.id, '/rasp - Расписание для учеников')
-        bot.send_message(message.chat.id, '/raspy - расписание для учителей')
+        bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей',reply_markup=markup)
 
 
-
-@bot.callback_query_handler(func=lambda call: True)
-def clasrasp(call):
-    if call.data == '5':
+@bot.callback_query_handler(func=lambda call: True)     #про это я писал
+def clasrasp(call):       #тут идёт обращение к калу
+    if call.data == '5':       # если это пришло то выполняется действия ниже и тд
         markup_inline = types.InlineKeyboardMarkup()
         kbtn1 = types.InlineKeyboardButton('5а', callback_data='5а')
         kbtn2 = types.InlineKeyboardButton('5б', callback_data='5б')
@@ -274,5 +230,20 @@ def clasrasp(call):
         markup_inline.row(kbtn40, kbtn41)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
 
+    #тута тестовый образец для вывода рассписание из файла
+    # for i in range(2, max_rows_rasp // 2 + 1):
+    # sku = sheet1.cell(row=i * 2, column=abo * kcla).value
+    # clas = sheet1.cell(row=3, column=abo * kcla).value
+    # global proj
+    # proj += 1
+
+    # if not sku:
+    # sku = 'нет урока'
+
+    # bot.send_message(message.chat.id, f'{proj}, {sku}')
+    # bot.send_message(message.chat.id, f'{clas}')
+    # proj = 0
+    # rasp = open('./rasp.xlsx', 'rb')
+    # bot.send_document(message.chat.id, rasp)
 
 bot.polling(none_stop=True)
