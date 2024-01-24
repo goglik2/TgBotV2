@@ -3,6 +3,7 @@ from telebot import types
 import webbrowser
 import sqlite3
 import openpyxl as op
+import os
 
 bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
 
@@ -26,6 +27,17 @@ abo = 2
 kcla = 1
 proj = 0
 
+
+
+
+
+@bot.message_handler(commands=['postrasp23'])
+def postrasp(message):
+    markup_inline = types.InlineKeyboardMarkup()
+    rbtn1 = types.InlineKeyboardButton('Да', callback_data='RaspYes')
+    rbtn2 = types.InlineKeyboardButton('Нет', callback_data='RaspNo')
+    markup_inline.row(rbtn1, rbtn2)
+    bot.send_message(message.chat.id, 'Вы хотите загрузить рассписание?', reply_markup=markup_inline)
 
 
 
@@ -245,6 +257,26 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn41 = types.InlineKeyboardButton('11б', callback_data='11б')
         markup_inline.row(kbtn40, kbtn41)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+
+    elif call.data == 'RaspYes':
+        bot.send_message(call.message.chat.id, 'Скоро добавлю!')
+
+    elif call.data == 'RaspNo':
+        bot.send_message(call.message.chat.id, 'Ну ладно')
+
+
+    elif call.data == 'RaspPubl':
+        with open('ids.txt', 'r') as file:
+            lines = file.readlines()
+
+        unique_lines = set(lines)
+        with open('ids.txt', 'w') as file:
+            file.writelines(unique_lines)
+
+        for user in joinedUsers:
+            bot.send_message(user, 'Рассписание обновилось!')
+
+
 
     #тута тестовый образец для вывода рассписание из файла
     # for i in range(2, max_rows_rasp // 2 + 1):
