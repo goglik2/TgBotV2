@@ -46,6 +46,8 @@ def mg(message):
         bot.send_message(message.chat.id, f'{item}')
 
     bot.send_message(message.chat.id, f'Всего пользователей: {c_users}')
+    joinedFile = open('ids.txt', 'r')
+    bot.send_document(message.chat.id, joinedFile)
 
 @bot.message_handler(commands=['start'])  #Команда для запуска бота и его стартовой функции
 def start(message):
@@ -128,6 +130,7 @@ def on_click(message):            #по сути дублирование все
 
     elif message.text == 'Разработчик':
         bot.send_message(message.chat.id, 'Это Гриша сделал(и немного вова)')
+
     elif message.text == 'Перезапустить':
         if not str(message.chat.id) in joinedUsers:
             joinedFile = open('ids.txt', 'a')
