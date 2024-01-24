@@ -11,6 +11,12 @@ c_users = 0
 rasp = 'rasp.xlsx'
 raspy = 'raspy.xlsx'
 
+joinedFile = open('ids.txt', 'r')
+joinedUsers = set()
+for line in joinedFile:
+    joinedUsers.add(line.strip())
+joinedFile.close()
+
 rasp2 = op.load_workbook(rasp, data_only=True)
 raspy2 = op.load_workbook(raspy, data_only=True)
 
@@ -27,11 +33,10 @@ proj = 0
 
 
 
-#доделать
 @bot.message_handler(commands=['post6741433926'])
 def post(message):
-    bot.send_message(message.chat.id, f'Отправьте файл с расписанием для ученика')
-#доделать
+    for user in joinedUsers:
+        bot.send_message(user, message.text[message.text.find(' '):])
 
 @bot.message_handler(commands=['mg'])    #команда только для разработчиков, нужна для просмотра информации о чате и пользователе
 def mg(message):
@@ -44,6 +49,11 @@ def mg(message):
 
 @bot.message_handler(commands=['start'])  #Команда для запуска бота и его стартовой функции
 def start(message):
+    if not str(message.chat.id) in joinedUsers:
+        joinedFile = open('ids.txt', 'a')
+        joinedFile.write(str(message.chat.id) + '\n')
+        joinedUsers.add(message.chat.id)
+
     user_id = [message.from_user.first_name, message.from_user.last_name, message.from_user.username]            #Заполнение списка всех пользователей бота
     if user_id not in users:
         users.append(user_id)
@@ -119,8 +129,13 @@ def on_click(message):            #по сути дублирование все
     elif message.text == 'Разработчик':
         bot.send_message(message.chat.id, 'Это Гриша сделал(и немного вова)')
     elif message.text == 'Перезапустить':
+        if not str(message.chat.id) in joinedUsers:
+            joinedFile = open('ids.txt', 'a')
+            joinedFile.write(str(message.chat.id) + '\n')
+            joinedUsers.add(message.chat.id)
+
         user_id = [message.from_user.first_name, message.from_user.last_name,
-        message.from_user.username]  # Заполнение списка всех пользователей бота
+                   message.from_user.username]  # Заполнение списка всех пользователей бота
         if user_id not in users:
             users.append(user_id)
             global c_users
@@ -135,8 +150,7 @@ def on_click(message):            #по сути дублирование все
         markup.row(btn1, btn3)  # Создаёт кнопку под вводом 1 ряд
         markup.row(btn2)  # Создаёт кнопку под вводом 2 ряд
         markup.row(btn4)  # Создаёт кнопку под вводом 3 ряд
-        bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей',reply_markup=markup)
-
+        bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание для учеников\n/raspy - расписание для учителей', reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)     #про это я писал
 def clasrasp(call):       #тут идёт обращение к калу
