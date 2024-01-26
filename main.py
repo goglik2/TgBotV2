@@ -1,31 +1,27 @@
 import telebot
 from telebot import types
-import webbrowser
 import sqlite3
-import openpyxl as op
-import os
+import requests
+import json
+import datetime
+import time
+import sched
+
+
 
 bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
 
+schedyl = sched.scheduler(time.time, time.sleep)
+
 users = []
 c_users = 0
-rasp = 'rasp.xlsx'
+
 
 joinedFile = open('ids.txt', 'r')
 joinedUsers = set()
 for line in joinedFile:
     joinedUsers.add(line.strip())
 joinedFile.close()
-
-rasp2 = op.load_workbook(rasp, data_only=True)
-
-sheet1 = rasp2.active
-
-max_rows_rasp = sheet1.max_row
-
-abo = 2
-kcla = 1
-proj = 0
 
 
 
@@ -167,7 +163,8 @@ def on_click(message):            #по сути дублирование все
         bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание', reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)     #про это я писал
-def clasrasp(call):       #тут идёт обращение к калу
+def clasrasp(call): #тут идёт обращение к калу
+
     if call.data == '5':       # если это пришло то выполняется действия ниже и тд
         markup_inline = types.InlineKeyboardMarkup()
         kbtn1 = types.InlineKeyboardButton('5а', callback_data='5а')
@@ -178,11 +175,20 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn6 = types.InlineKeyboardButton('5е', callback_data='5е')
         kbtn7 = types.InlineKeyboardButton('5ж', callback_data='5ж')
         kbtn8 = types.InlineKeyboardButton('5з', callback_data='5з')
+        kbtn42 = types.InlineKeyboardButton('5и', callback_data='5и')
+        kbtn43 = types.InlineKeyboardButton('5к', callback_data='5к')
+        kbtn44 = types.InlineKeyboardButton('5л', callback_data='5л')
+        kbtn45 = types.InlineKeyboardButton('5м', callback_data='5м')
+        kbtn46 = types.InlineKeyboardButton('5н', callback_data='5н')
         markup_inline.row(kbtn1, kbtn2)
         markup_inline.row(kbtn3, kbtn4)
         markup_inline.row(kbtn5, kbtn6)
         markup_inline.row(kbtn7, kbtn8)
+        markup_inline.row(kbtn42, kbtn43)
+        markup_inline.row(kbtn44, kbtn45)
+        markup_inline.row(kbtn46)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
+
 
     elif call.data == '6':
         markup_inline = types.InlineKeyboardMarkup()
@@ -192,9 +198,12 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn12 = types.InlineKeyboardButton('6г', callback_data='6г')
         kbtn13 = types.InlineKeyboardButton('6д', callback_data='6д')
         kbtn14 = types.InlineKeyboardButton('6е', callback_data='6е')
+        kbtn47 = types.InlineKeyboardButton('6ж', callback_data='6ж')
+        kbtn48 = types.InlineKeyboardButton('6з', callback_data='6з')
         markup_inline.row(kbtn9, kbtn10)
         markup_inline.row(kbtn11, kbtn12)
         markup_inline.row(kbtn13, kbtn14)
+        markup_inline.row(kbtn47, kbtn48)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '7':
@@ -207,13 +216,10 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn20 = types.InlineKeyboardButton('7е', callback_data='7е')
         kbtn21 = types.InlineKeyboardButton('7ж', callback_data='7ж')
         kbtn22 = types.InlineKeyboardButton('7з', callback_data='7з')
-        kbtn23 = types.InlineKeyboardButton('7и', callback_data='7и')
-        kbtn24 = types.InlineKeyboardButton('7к', callback_data='7к')
         markup_inline.row(kbtn15, kbtn16)
         markup_inline.row(kbtn17, kbtn18)
         markup_inline.row(kbtn19, kbtn20)
         markup_inline.row(kbtn21, kbtn22)
-        markup_inline.row(kbtn23, kbtn24)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '8':
@@ -224,9 +230,15 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn28 = types.InlineKeyboardButton('8г', callback_data='8г')
         kbtn29 = types.InlineKeyboardButton('8д', callback_data='8д')
         kbtn30 = types.InlineKeyboardButton('8е', callback_data='8е')
+        kbtn23 = types.InlineKeyboardButton('8ж', callback_data='8ж')
+        kbtn49 = types.InlineKeyboardButton('8з', callback_data='8з')
+        kbtn50 = types.InlineKeyboardButton('8и', callback_data='8и')
+        kbtn24 = types.InlineKeyboardButton('8к', callback_data='8к')
         markup_inline.row(kbtn25, kbtn26)
         markup_inline.row(kbtn27, kbtn28)
         markup_inline.row(kbtn29, kbtn30)
+        markup_inline.row(kbtn23, kbtn49)
+        markup_inline.row(kbtn50, kbtn24)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '9':
@@ -237,9 +249,15 @@ def clasrasp(call):       #тут идёт обращение к калу
         kbtn34 = types.InlineKeyboardButton('9г', callback_data='9г')
         kbtn35 = types.InlineKeyboardButton('9д', callback_data='9д')
         kbtn36 = types.InlineKeyboardButton('9е', callback_data='9е')
+        kbtn51 = types.InlineKeyboardButton('9ж', callback_data='9ж')
+        kbtn52 = types.InlineKeyboardButton('9з', callback_data='9з')
+        kbtn53 = types.InlineKeyboardButton('9и', callback_data='9и')
+        kbtn54 = types.InlineKeyboardButton('9к', callback_data='9к')
         markup_inline.row(kbtn31, kbtn32)
         markup_inline.row(kbtn33, kbtn34)
         markup_inline.row(kbtn35, kbtn36)
+        markup_inline.row(kbtn51, kbtn52)
+        markup_inline.row(kbtn53, kbtn54)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
 
     elif call.data == '10':
@@ -255,15 +273,10 @@ def clasrasp(call):       #тут идёт обращение к калу
         markup_inline = types.InlineKeyboardMarkup()
         kbtn40 = types.InlineKeyboardButton('11а', callback_data='11а')
         kbtn41 = types.InlineKeyboardButton('11б', callback_data='11б')
+        kbtn55 = types.InlineKeyboardButton('11в', callback_data='11в')
         markup_inline.row(kbtn40, kbtn41)
+        markup_inline.row(kbtn55)
         bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
-
-    elif call.data == 'RaspYes':
-        bot.send_message(call.message.chat.id, 'Скоро добавлю!')
-
-    elif call.data == 'RaspNo':
-        bot.send_message(call.message.chat.id, 'Ну ладно')
-
 
     elif call.data == 'RaspPubl':
         with open('ids.txt', 'r') as file:
@@ -277,21 +290,1871 @@ def clasrasp(call):       #тут идёт обращение к калу
             bot.send_message(user, 'Рассписание обновилось!')
 
 
+    try:
+        if call.data == '5а':
+            selectGroup = '212'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            global selectDate
+            selectDate = datetime.datetime.now()
+            global Answ
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
 
-    #тута тестовый образец для вывода рассписание из файла
-    # for i in range(2, max_rows_rasp // 2 + 1):
-    # sku = sheet1.cell(row=i * 2, column=abo * kcla).value
-    # clas = sheet1.cell(row=3, column=abo * kcla).value
-    # global proj
-    # proj += 1
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
 
-    # if not sku:
-    # sku = 'нет урока'
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
 
-    # bot.send_message(message.chat.id, f'{proj}, {sku}')
-    # bot.send_message(message.chat.id, f'{clas}')
-    # proj = 0
-    # rasp = open('./rasp.xlsx', 'rb')
-    # bot.send_document(message.chat.id, rasp)
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5б':
+            selectGroup = '213'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5в':
+            selectGroup = '214'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5г':
+            selectGroup = '215'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5д':
+            selectGroup = '216'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5е':
+            selectGroup = '217'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5ж':
+            selectGroup = '218'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5з':
+            selectGroup = '219'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5и':
+            selectGroup = '220'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5к':
+            selectGroup = '268'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5л':
+            selectGroup = '269'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5м':
+            selectGroup = '270'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '5н':
+            selectGroup = '271'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6а':
+            selectGroup = '221'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6г':
+            selectGroup = '224'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6д':
+            selectGroup = '225'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6е':
+            selectGroup = '226'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6ж':
+            selectGroup = '227'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6з':
+            selectGroup = '228'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6б':
+            selectGroup = '258'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '6в':
+            selectGroup = '259'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7а':
+            selectGroup = '229'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7б':
+            selectGroup = '230'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7в':
+            selectGroup = '231'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7г':
+            selectGroup = '232'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7д':
+            selectGroup = '233'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7е':
+            selectGroup = '260'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7ж':
+            selectGroup = '273'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '7з':
+            selectGroup = '274'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8а':
+            selectGroup = '235'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8б':
+            selectGroup = '236'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8в':
+            selectGroup = '237'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8г':
+            selectGroup = '238'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8д':
+            selectGroup = '239'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8е':
+            selectGroup = '240'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8к':
+            selectGroup = '244'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8ж':
+            selectGroup = '261'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8з':
+            selectGroup = '262'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '8и':
+            selectGroup = '263'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9а':
+            selectGroup = '245'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9б':
+            selectGroup = '246'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9в':
+            selectGroup = '247'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9г':
+            selectGroup = '248'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9д':
+            selectGroup = '249'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9е':
+            selectGroup = '250'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9ж':
+            selectGroup = '264'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9з':
+            selectGroup = '265'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9и':
+            selectGroup = '266'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '9к':
+            selectGroup = '267'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '10а':
+            selectGroup = '251'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '10б':
+            selectGroup = '252'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '10в':
+            selectGroup = '253'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '11а':
+            selectGroup = '254'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '11б':
+            selectGroup = '255'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+        elif call.data == '11в':
+            selectGroup = '256'
+            markup_inline = types.InlineKeyboardMarkup()
+            dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
+            dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
+            markup_inline.row(dbtn1, dbtn2)
+            bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+            selectDate = datetime.datetime.now()
+            Answ = 0
+            a = 0
+            while Answ < 1:
+                a += 1
+
+            a = 0
+            url = 'https://rasp.milytin.ru/search'
+            params = {
+                'selectGroup': selectGroup,
+                'selectTeacher': '222',
+                'selectPlace': '174',
+                'selectDate[]': selectDate,
+                'type': 'group'
+            }
+
+            response = requests.get(url, params=params)
+            data_str = response.json()
+            data = json.loads(data_str)
+
+            for item in data[0]:
+                for lesson in item:
+                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+            Answ = 0
+            selectDate = datetime.datetime.now()
+    except LookupError:
+            bot.send_message(call.message.chat.id, 'Рассписание ещё не выложили!')
+            Answ = 0
+            selectDate = datetime.datetime.now()
+
+    if call.data == 'Сегодня':
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        selectDate = f'{selectDate}'
+        Answ = 1
+
+    elif call.data == 'Завтра':
+        selectDate = selectDate + datetime.timedelta(days=1)
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        selectDate = f'{selectDate}'
+        Answ = 1
+
+
+
+@bot.message_handler()
+def raspcheck(sc):
+    try:
+        selectGroup = '248'
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        selectDate = f'{selectDate}'
+        url = 'https://rasp.milytin.ru/search'
+        params = {
+            'selectGroup': selectGroup,
+            'selectTeacher': '222',
+            'selectPlace': '174',
+            'selectDate[]': selectDate,
+            'type': 'group'
+        }
+        response = requests.get(url, params=params)
+        data_str = response.json()
+        data = json.loads(data_str)
+        for item in data[0]:
+            for lesson in item:
+                bot.send_message(users, 'расписание обновилось!')
+        selectDate = datetime.datetime.now()
+    except LookupError:
+        pass
+
+    schedyl.enter(300, 1, raspcheck, (sc,))
+schedyl.enter(300, 1, raspcheck, (schedyl,))
+
+schedyl.run()
+
 
 bot.polling(none_stop=True)
