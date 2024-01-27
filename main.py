@@ -2113,11 +2113,13 @@ def clasrasp(call): #тут идёт обращение к калу
             selectDate = datetime.datetime.now()
 
     if call.data == 'Сегодня':
+        selectDate = datetime.datetime.now()
         selectDate = selectDate.strftime('%Y-%m-%d')
         selectDate = f'{selectDate}'
         Answ = 1
 
     elif call.data == 'Завтра':
+        selectDate = datetime.datetime.now()
         selectDate = selectDate + datetime.timedelta(days=1)
         selectDate = selectDate.strftime('%Y-%m-%d')
         selectDate = f'{selectDate}'
@@ -2125,36 +2127,36 @@ def clasrasp(call): #тут идёт обращение к калу
 
 
 
-@bot.message_handler()
-def raspcheck(sc):
-    try:
-        selectGroup = '248'
-        selectDate = datetime.datetime.now()
-        selectDate = selectDate + datetime.timedelta(days=1)
-        selectDate = selectDate.strftime('%Y-%m-%d')
-        selectDate = f'{selectDate}'
-        url = 'https://rasp.milytin.ru/search'
-        params = {
-            'selectGroup': selectGroup,
-            'selectTeacher': '222',
-            'selectPlace': '174',
-            'selectDate[]': selectDate,
-            'type': 'group'
-        }
-        response = requests.get(url, params=params)
-        data_str = response.json()
-        data = json.loads(data_str)
-        for item in data[0]:
-            for lesson in item:
-                bot.send_message(users, 'расписание обновилось!')
-        selectDate = datetime.datetime.now()
-    except LookupError:
-        pass
+#@bot.message_handler()
+#def raspcheck(sc):
+    #try:
+        #selectGroup = '248'
+        #selectDate = datetime.datetime.now()
+        #selectDate = selectDate + datetime.timedelta(days=1)
+        #selectDate = selectDate.strftime('%Y-%m-%d')
+        #selectDate = f'{selectDate}'
+        #url = 'https://rasp.milytin.ru/search'
+        #params = {
+            #'selectGroup': selectGroup,
+            #'selectTeacher': '222',
+            #'selectPlace': '174',
+            #'selectDate[]': selectDate,
+            #'type': 'group'
+        #}
+        #response = requests.get(url, params=params)
+        #data_str = response.json()
+        #data = json.loads(data_str)
+        #for item in data[0]:
+            #for lesson in item:
+                #bot.send_message(users, 'расписание обновилось!')
+        #selectDate = datetime.datetime.now()
+    #except LookupError:
+        #pass
 
-    schedyl.enter(300, 1, raspcheck, (sc,))
-schedyl.enter(300, 1, raspcheck, (schedyl,))
+    #schedyl.enter(300, 1, raspcheck, (sc,))
+#schedyl.enter(300, 1, raspcheck, (schedyl,))
 
-schedyl.run()
+#schedyl.run()
 
 
 bot.polling(none_stop=True)
