@@ -3,14 +3,13 @@ from telebot import types
 import requests
 import json
 import datetime
-import schedule
-import threading
-import time
+import httpx
+import asyncio
 
 
 
 
-bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
+bot = telebot.TeleBot('6741433926:AAF62lt0MTTzHMRZf1l1oyTxn4ZWsNbI80E')
 
 users = []
 c_users = 0
@@ -23,8 +22,15 @@ for line in joinedFile:
 joinedFile.close()
 
 
-def raspcheck():
+async def raspcheck(bot):
     try:
+        with open('ids.txt', 'r') as file:
+            lines = file.readlines()
+
+        unique_lines = set(lines)
+        with open('ids.txt', 'w') as file:
+            file.writelines(unique_lines)
+
         selectGroup = '248'
         selectDate = datetime.datetime.now()
         selectDate = selectDate + datetime.timedelta(days=1)
@@ -38,30 +44,22 @@ def raspcheck():
             'selectDate[]': selectDate,
             'type': 'group'
         }
-        response = requests.get(url, params=params)
-        data_str = response.json()
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+            data_str = response.text
+
         data = json.loads(data_str)
-        bot.send_message(users, 'расписание обновилось!')
-        selectDate = datetime.datetime.now()
-    except NameError:
-        print('N')
-        pass
+        for chat_id in unique_lines:
+            bot.send_message(chat_id.strip(), 'расписание обновилось!')
+        print('f')
 
-def schedule_raspcheck():
+    except Exception as e:
+        print('Error:')
+
+async def schedule_raspcheck(bot):
     while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-# Запуск функции raspcheck раз в минуту
-schedule.every(1).seconds.do(raspcheck)
-
-# Запуск отдельного потока для выполнения raspcheck
-t = threading.Thread(target=schedule_raspcheck)
-t.start()
-
-
-
-
+        await raspcheck(bot)
+        await asyncio.sleep(120)  # Wait for 60 seconds before the next check
 
 @bot.message_handler(commands=['post23'])
 def post(message):
@@ -189,7 +187,7 @@ def on_click(message):            #по сути дублирование все
         bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание', reply_markup=markup)
 
 @bot.callback_query_handler(func=lambda call: True)     #про это я писал
-def clasrasp(call): #тут идёт обращение к калу
+async def clasrasp(call): #тут идёт обращение к калу
 
     if call.data == '5':       # если это пришло то выполняется действия ниже и тд
         markup_inline = types.InlineKeyboardMarkup()
@@ -213,7 +211,7 @@ def clasrasp(call): #тут идёт обращение к калу
         markup_inline.row(kbtn42, kbtn43)
         markup_inline.row(kbtn44, kbtn45)
         markup_inline.row(kbtn46)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
 
     elif call.data == '6':
@@ -230,7 +228,7 @@ def clasrasp(call): #тут идёт обращение к калу
         markup_inline.row(kbtn11, kbtn12)
         markup_inline.row(kbtn13, kbtn14)
         markup_inline.row(kbtn47, kbtn48)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '7':
         markup_inline = types.InlineKeyboardMarkup()
@@ -246,7 +244,7 @@ def clasrasp(call): #тут идёт обращение к калу
         markup_inline.row(kbtn17, kbtn18)
         markup_inline.row(kbtn19, kbtn20)
         markup_inline.row(kbtn21, kbtn22)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '8':
         markup_inline = types.InlineKeyboardMarkup()
@@ -265,7 +263,7 @@ def clasrasp(call): #тут идёт обращение к калу
         markup_inline.row(kbtn29, kbtn30)
         markup_inline.row(kbtn23, kbtn49)
         markup_inline.row(kbtn50, kbtn24)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup = markup_inline)
 
     elif call.data == '9':
         markup_inline = types.InlineKeyboardMarkup()
@@ -284,7 +282,7 @@ def clasrasp(call): #тут идёт обращение к калу
         markup_inline.row(kbtn35, kbtn36)
         markup_inline.row(kbtn51, kbtn52)
         markup_inline.row(kbtn53, kbtn54)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
 
     elif call.data == '10':
         markup_inline = types.InlineKeyboardMarkup()
@@ -293,7 +291,7 @@ def clasrasp(call): #тут идёт обращение к калу
         kbtn39 = types.InlineKeyboardButton('10в', callback_data='10в')
         markup_inline.row(kbtn37, kbtn38)
         markup_inline.row(kbtn39)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
 
     elif call.data == '11':
         markup_inline = types.InlineKeyboardMarkup()
@@ -302,19 +300,7 @@ def clasrasp(call): #тут идёт обращение к калу
         kbtn55 = types.InlineKeyboardButton('11в', callback_data='11в')
         markup_inline.row(kbtn40, kbtn41)
         markup_inline.row(kbtn55)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
-
-    elif call.data == 'RaspPubl':
-        with open('ids.txt', 'r') as file:
-            lines = file.readlines()
-
-        unique_lines = set(lines)
-        with open('ids.txt', 'w') as file:
-            file.writelines(unique_lines)
-
-        for user in joinedUsers:
-            bot.send_message(user, 'Рассписание обновилось!')
-
+        await bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
 
     try:
         if call.data == '5а':
@@ -328,11 +314,9 @@ def clasrasp(call): #тут идёт обращение к калу
             selectDate = datetime.datetime.now()
             global Answ
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -361,11 +345,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -394,11 +376,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -427,11 +407,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -460,11 +438,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -493,11 +469,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -526,11 +500,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -559,11 +531,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -592,11 +562,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -625,11 +593,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -658,11 +624,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -691,11 +655,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -724,11 +686,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -757,11 +717,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -790,11 +748,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -823,11 +779,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -856,11 +810,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -889,11 +841,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -922,11 +872,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -955,11 +903,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -988,11 +934,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1021,11 +965,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1054,11 +996,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1087,11 +1027,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1120,11 +1058,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1153,11 +1089,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1186,11 +1120,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1219,11 +1151,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1252,11 +1182,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1285,11 +1213,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1318,11 +1244,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1351,11 +1275,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1384,11 +1306,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1417,11 +1337,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1450,11 +1368,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1483,11 +1399,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1516,11 +1430,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1549,11 +1461,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1582,11 +1492,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1615,11 +1523,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1648,11 +1554,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1681,11 +1585,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1714,11 +1616,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1747,11 +1647,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1780,11 +1678,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1813,11 +1709,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1846,11 +1740,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1879,11 +1771,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1912,11 +1802,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1945,11 +1833,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -1978,11 +1864,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -2011,11 +1895,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -2044,11 +1926,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -2077,11 +1957,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -2110,11 +1988,9 @@ def clasrasp(call): #тут идёт обращение к калу
             bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
             selectDate = datetime.datetime.now()
             Answ = 0
-            a = 0
             while Answ < 1:
-                a += 1
+                pass
 
-            a = 0
             url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
@@ -2150,5 +2026,9 @@ def clasrasp(call): #тут идёт обращение к калу
         selectDate = selectDate.strftime('%Y-%m-%d')
         selectDate = f'{selectDate}'
         Answ = 1
+
+    await asyncio.gather(*[clasrasp(request) for request in requests])
+
+    asyncio.run(clasrasp())
 
 bot.polling(none_stop=True)
