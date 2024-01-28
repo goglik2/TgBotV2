@@ -1,17 +1,16 @@
 import telebot
 from telebot import types
-import sqlite3
 import requests
 import json
 import datetime
+import schedule
+import threading
 import time
-import sched
+
 
 
 
 bot = telebot.TeleBot('6741433926:AAFAOv4jNejzzQD_Gs7KxLtXA-xluG8jAcU')
-
-schedyl = sched.scheduler(time.time, time.sleep)
 
 users = []
 c_users = 0
@@ -24,16 +23,43 @@ for line in joinedFile:
 joinedFile.close()
 
 
+def raspcheck():
+    try:
+        selectGroup = '248'
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        selectDate = f'{selectDate}'
+        url = 'https://rasp.milytin.ru/search'
+        params = {
+            'selectGroup': selectGroup,
+            'selectTeacher': '222',
+            'selectPlace': '174',
+            'selectDate[]': selectDate,
+            'type': 'group'
+        }
+        response = requests.get(url, params=params)
+        data_str = response.json()
+        data = json.loads(data_str)
+        bot.send_message(users, 'расписание обновилось!')
+        selectDate = datetime.datetime.now()
+    except NameError:
+        print('N')
+        pass
+
+def schedule_raspcheck():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+# Запуск функции raspcheck раз в минуту
+schedule.every(1).seconds.do(raspcheck)
+
+# Запуск отдельного потока для выполнения raspcheck
+t = threading.Thread(target=schedule_raspcheck)
+t.start()
 
 
-
-@bot.message_handler(commands=['postrasp23'])
-def postrasp(message):
-    markup_inline = types.InlineKeyboardMarkup()
-    rbtn1 = types.InlineKeyboardButton('Да', callback_data='RaspYes')
-    rbtn2 = types.InlineKeyboardButton('Нет', callback_data='RaspNo')
-    markup_inline.row(rbtn1, rbtn2)
-    bot.send_message(message.chat.id, 'Вы хотите загрузить рассписание?', reply_markup=markup_inline)
 
 
 
@@ -2108,7 +2134,7 @@ def clasrasp(call): #тут идёт обращение к калу
             Answ = 0
             selectDate = datetime.datetime.now()
     except LookupError:
-            bot.send_message(call.message.chat.id, 'Рассписание ещё не выложили!')
+            bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
             Answ = 0
             selectDate = datetime.datetime.now()
 
@@ -2124,39 +2150,5 @@ def clasrasp(call): #тут идёт обращение к калу
         selectDate = selectDate.strftime('%Y-%m-%d')
         selectDate = f'{selectDate}'
         Answ = 1
-
-
-
-#@bot.message_handler()
-#def raspcheck(sc):
-    #try:
-        #selectGroup = '248'
-        #selectDate = datetime.datetime.now()
-        #selectDate = selectDate + datetime.timedelta(days=1)
-        #selectDate = selectDate.strftime('%Y-%m-%d')
-        #selectDate = f'{selectDate}'
-        #url = 'https://rasp.milytin.ru/search'
-        #params = {
-            #'selectGroup': selectGroup,
-            #'selectTeacher': '222',
-            #'selectPlace': '174',
-            #'selectDate[]': selectDate,
-            #'type': 'group'
-        #}
-        #response = requests.get(url, params=params)
-        #data_str = response.json()
-        #data = json.loads(data_str)
-        #for item in data[0]:
-            #for lesson in item:
-                #bot.send_message(users, 'расписание обновилось!')
-        #selectDate = datetime.datetime.now()
-    #except LookupError:
-        #pass
-
-    #schedyl.enter(300, 1, raspcheck, (sc,))
-#schedyl.enter(300, 1, raspcheck, (schedyl,))
-
-#schedyl.run()
-
 
 bot.polling(none_stop=True)
