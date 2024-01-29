@@ -9,7 +9,7 @@ import threading
 
 
 
-bot = telebot.TeleBot('6741433926:AAGJrOgChrNOZgZfU0JWssuN1Y-ws_3s7LI')
+bot = telebot.TeleBot('6873531488:AAFAHq3x42Blr7ckvwY2wppxVIutiyRWfP8')
 
 users = []
 c_users = 0
@@ -40,7 +40,7 @@ def checkrasp(chat_id):
             data_str = response.json()
             data = json.loads(data_str)
             bot.send_message(chat_id, 'Расписание обновилось!')
-            time.sleep(50400)
+            time.sleep(86400)
         except IndexError:
             time.sleep(150)
 
