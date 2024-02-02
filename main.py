@@ -81,6 +81,7 @@ def mg(message):
         inf += f'{user}\n'
 
     bot.send_message(message.chat.id, inf)
+    bot.send_document(message.chat.id, open(r'main.py', 'rb'))
 
 
 @bot.message_handler(commands=['start'])
@@ -134,9 +135,19 @@ def info(message):
     cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
     rows = cur.fetchall()
     clas = f'{rows}'
-    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'",
-                                                                                                             "").replace(
-        ",", "")
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+    cur.close()
+    conn.close()
+    if clas == '':
+        bot.send_message(message.chat.id, 'Сначала укажите ваш класс')
+        bot.register_next_step_handler(message, user_clas)
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
     cur.close()
     conn.close()
     bot.send_message(message.chat.id,f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
@@ -152,6 +163,9 @@ def rasp(message):
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
     cur.close()
     conn.close()
+    if clas == '':
+        bot.send_message(message.chat.id, 'Сначала укажите ваш класс')
+        bot.register_next_step_handler(message, user_clas)
     markup_inline = types.InlineKeyboardMarkup()
     bbtn1 = types.InlineKeyboardButton(f'{clas}', callback_data=f'{clas}')
     bbtn2 = types.InlineKeyboardButton('Все классы', callback_data='All')
@@ -160,6 +174,18 @@ def rasp(message):
 
 @bot.message_handler(commands=['settings'])
 def settings(message):
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+    cur.close()
+    conn.close()
+    if clas == '':
+        bot.send_message(message.chat.id, 'Сначала укажите ваш класс')
+        bot.register_next_step_handler(message, user_clas)
     conn = sqlite3.connect('ids.db')
     cur = conn.cursor()
     usid = message.from_user.id
@@ -182,14 +208,42 @@ def on_click(message):
     elif message.text == 'Помощь':
         info(message)
 
-    elif message.text == 'Разработчик':
-        bot.send_message(message.chat.id, 'Это Гриша сделал(и немного вова)')
-
     elif message.text == 'Перезапустить':
         start(message)
 
     elif message.text == 'Настройки':
         settings(message)
+
+    elif message.text.lower() == 'разработчик':
+        bot.send_message(message.chat.id, 'Сие творение создал Григорий и моральную помощь оказывал его юный подаван Владимир\nГригорий: @FIVE_HH, 89110483340(кому не сложно скиньте денег)\nВладимир: @Discketaa, 89216874164\nЕсли вы увидели это сообщение, то обязаны нам написать или позвонить!')
+
+    elif message.text.lower() == 'нет':
+        bot.send_message(message.chat.id, 'пятиклассника ответ!')
+
+    elif message.text.lower() == 'капибара':
+        bot.send_message(message.chat.id, 'Что?')
+
+    elif message.text.lower() == 'утюг':
+        bot.send_message(message.chat.id, 'Причём это тут?')
+
+    elif message.text.lower() == 'уксус':
+        bot.send_message(message.chat.id, 'Ладно...')
+
+    elif message.text.lower() == 'женщина':
+        bot.send_message(message.chat.id, 'Где!')
+
+    elif message.text.lower() == 'девушка':
+        bot.send_message(message.chat.id, 'Где!')
+
+    elif message.text.lower() == 'владимир путин':
+        bot.send_message(message.chat.id, 'Молодец!\nПолитик, лидер и боец!')
+
+    elif message.text.lower() == 'привет':
+        bot.send_message(message.chat.id, 'привет')
+
+    elif message.text.lower() == 'великолепно':
+        bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
+
 @bot.callback_query_handler(func=lambda call: True)
 def clasrasp(call):
     global selectGroup
