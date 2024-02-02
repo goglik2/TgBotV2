@@ -5,19 +5,18 @@ import json
 import datetime
 import time
 import threading
+import sqlite3
 
+
+global url
+url = 'https://rasp.milytin.ru/search'
 
 bot = telebot.TeleBot('6741433926:AAGJrOgChrNOZgZfU0JWssuN1Y-ws_3s7LI')
 
-users = []
-c_users = 0
-
-joinedFile = open('ids.txt', 'r')
-joinedUsers = set()
-for line in joinedFile:
-    joinedUsers.add(line.strip())
-joinedFile.close()
-
+db = sqlite3.connect('ids.db')
+sql = db.cursor()
+sql.execute("""CREATE TABLE IF NOT EXISTS users (id TEXT, class TEXT)""")
+db.commit()
 
 def checkrasp(chat_id):
     while True:
@@ -38,77 +37,65 @@ def checkrasp(chat_id):
             data_str = response.json()
             data = json.loads(data_str)
             bot.send_message(chat_id, 'Расписание обновилось!')
-            time.sleep(50400)
+            time.sleep(43200)
         except IndexError:
-            time.sleep(150)
-
-with open('ids.txt', 'r') as joinedFile:
-    joinedUsers = set(line.strip() for line in joinedFile)
-
-for chat_id in joinedUsers:
-    thr = threading.Thread(target=checkrasp, args=(chat_id,))
-    thr.start()
-
+            time.sleep(300)
 
 @bot.message_handler(commands=['post23'])
 def post(message):
     with open('ids.txt', 'r') as file:
         lines = file.readlines()
+        unique_lines = set(lines)
 
-    unique_lines = set(lines)
     with open('ids.txt', 'w') as file:
         file.writelines(unique_lines)
 
     for user in joinedUsers:
         bot.send_message(user, message.text[message.text.find(' '):])
 
-@bot.message_handler(commands=['mg'])    #команда только для разработчиков, нужна для просмотра информации о чате и пользователе
+@bot.message_handler(commands=['mg'])
+# команда только для разработчиков, нужна для просмотра информации о чате и пользователе
 def mg(message):
-    with open('ids.txt', 'r') as file:
-        lines = file.readlines()
-
-    unique_lines = set(lines)
-    with open('ids.txt', 'w') as file:
-        file.writelines(unique_lines)
-
     bot.send_message(message.chat.id, message)
     bot.send_message(message.chat.id, f'Все пользователи:')
+
     for item in users:
         bot.send_message(message.chat.id, f'{item}')
 
     bot.send_message(message.chat.id, f'Всего пользователей: {c_users}')
-    joinedFile = open('ids.txt', 'r')
-    bot.send_document(message.chat.id, joinedFile)
-    joinedFile.close()
 
-@bot.message_handler(commands=['start'])  #Команда для запуска бота и его стартовой функции
+@bot.message_handler(commands=['start'])
+# Команда для запуска бота и его стартовой функции
 def start(message):
-    if not str(message.chat.id) in joinedUsers:
-        joinedFile = open('ids.txt', 'a')
-        joinedFile.write(str(message.chat.id) + '\n')
-        joinedUsers.add(message.chat.id)
-
-    user_id = [message.from_user.first_name, message.from_user.last_name, message.from_user.username]            #Заполнение списка всех пользователей бота
-    if user_id not in users:
-        users.append(user_id)
-        global c_users
-        c_users += 1
-
     bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name}')
+
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton('Расписание')   #имена для кнопок
-    btn2 = types.KeyboardButton('Помощь')        #имена для кнопок
-    btn3 = types.KeyboardButton('Перезапустить')  #имена для кнопок
-    markup.row(btn1)     #Создаёт кнопку под вводом 1 ряд
-    markup.row(btn2)     #Создаёт кнопку под вводом 2 ряд
-    markup.row(btn3)     #Создаёт кнопку под вводом 3 ряд
+    btn1 = types.KeyboardButton('Расписание') # имена для кнопок
+    btn2 = types.KeyboardButton('Помощь') # имена для кнопок
+    btn3 = types.KeyboardButton('Перезапустить') # имена для кнопок
+
+    markup.row(btn1) # Создаёт кнопку под вводом 1 ряд
+    markup.row(btn2) # Создаёт кнопку под вводом 2 ряд
+    markup.row(btn3) # Создаёт кнопку под вводом 3 ряд
+
     bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание', reply_markup=markup)
+    bot.send_message(message.chat.id, 'Напишите ваш класс чтобы в будующем я мог присылать вам актуальные данные о расписании, напиример 5а')
+
+    user_id = message.from_user.id
+
+    sql.execute("SELECT id FROM users")
+
+    if sql.fetchone() is None:
+        sql.execute(f"INSERT INTO users VALUES (?)", (user_id))
+        db.commit()
 
 
 
 @bot.message_handler(commands=['help'])        #при вводе команды help вылезает сообщение
 def info(message):
+    bot.send_message(message.chat.id, f'Ваш класс: {user_class}')
     bot.send_message(message.chat.id,f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание')
+
 
 
 @bot.message_handler(commands=['rasp'])        #при вводе команды rasp вылезает сообщение
@@ -553,7 +540,6 @@ def clasrasp(call): #тут идёт обращение к калу
             selectDate = datetime.datetime.now()
             selectDate = selectDate.strftime('%Y-%m-%d')
             selectDate = f'{selectDate}'
-            url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -561,16 +547,15 @@ def clasrasp(call): #тут идёт обращение к калу
                 'selectDate[]': selectDate,
                 'type': 'group'
             }
-
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-
             for item in data[0]:
                 for lesson in item:
                     bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
         except IndexError:
             bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
+
 
     elif call.data == 'Завтра':
         try:
@@ -578,7 +563,6 @@ def clasrasp(call): #тут идёт обращение к калу
             selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
             selectDate = f'{selectDate}'
-            url = 'https://rasp.milytin.ru/search'
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -586,11 +570,9 @@ def clasrasp(call): #тут идёт обращение к калу
                 'selectDate[]': selectDate,
                 'type': 'group'
             }
-
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-
             for item in data[0]:
                 for lesson in item:
                     bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
