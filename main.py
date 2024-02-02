@@ -12,7 +12,6 @@ url = 'https://rasp.milytin.ru/search'
 
 bot = telebot.TeleBot('6741433926:AAGJrOgChrNOZgZfU0JWssuN1Y-ws_3s7LI')
 
-
 def checkrasp(message):
     while True:
         try:
@@ -45,9 +44,14 @@ def checkrasp(message):
         except IndexError:
             time.sleep(300)
 
+
 def startthread(message):
-    thread = threading.Thread(target=checkrasp(), args=(message,))
+    thread = threading.Thread(target=checkrasp(message), args=(message))
     thread.start()
+
+@bot.message_handler(commands=['startcheck'])
+def startcheckraspcheck(message):
+    startthread(message)
 
 @bot.message_handler(commands=['post23'])
 def post(message):
@@ -124,11 +128,30 @@ def user_clas(message):
 
 @bot.message_handler(commands=['help'])
 def info(message):
-    bot.send_message(message.chat.id,f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'",
+                                                                                                             "").replace(
+        ",", "")
+    cur.close()
+    conn.close()
+    bot.send_message(message.chat.id,f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
 
 @bot.message_handler(commands=['rasp'])
 def rasp(message):
-    global clas
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+    cur.close()
+    conn.close()
     markup_inline = types.InlineKeyboardMarkup()
     bbtn1 = types.InlineKeyboardButton(f'{clas}', callback_data=f'{clas}')
     bbtn2 = types.InlineKeyboardButton('Все классы', callback_data='All')
@@ -137,7 +160,18 @@ def rasp(message):
 
 @bot.message_handler(commands=['settings'])
 def settings(message):
-    bot.send_message(message.chat.id, 'Введите ваш класс, например 5а или 9г:')
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT clas FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'",
+                                                                                                             "").replace(
+        ",", "")
+    cur.close()
+    conn.close()
+    bot.send_message(message.chat.id, f'Ваш класс: {clas}\nВведите ваш класс, например 5а или 9г:')
     bot.register_next_step_handler(message, user_clas)
 
 @bot.message_handler(func=lambda message: True)
@@ -580,9 +614,11 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
+            message = ''
             for item in data[0]:
                 for lesson in item:
-                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                    message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+            bot.send_message(call.message.chat.id, message)
         except IndexError:
             bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
 
@@ -603,9 +639,11 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
+            message = ''
             for item in data[0]:
                 for lesson in item:
-                    bot.send_message(call.message.chat.id, lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                    message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+            bot.send_message(call.message.chat.id, message)
         except IndexError:
             bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
 
