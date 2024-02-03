@@ -1,4 +1,8 @@
 import main
-
 while True:
-    main()
+    try:
+        main()
+    except Exception as e:
+        main()
+    finally:
+        main()
