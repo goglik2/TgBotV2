@@ -89,7 +89,7 @@ def start(message):
     user_id = message.from_user.id
     conn = sqlite3.connect('ids.db')
     cur = conn.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, clas TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, clas TEXT, group_id TEXT)')
     conn.commit()
     cur.close()
     conn.close()
@@ -109,9 +109,10 @@ def user_clas(message):
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
-        cur.execute('INSERT INTO users (id, name, clas) VALUES (?, ?, ?)', (id, name, clas))
+        cur.execute('INSERT INTO users (id, name, clas, group_id) VALUES (?, ?, ?, ?)', (id, name, clas, 212))
     else:
         cur.execute('UPDATE users SET clas = ? WHERE id = ?', (clas, id))
+        cur.execute('UPDATE users SET group_id = ? WHERE id = ?', (1, id))
     conn.commit()
     cur.close()
     conn.close()
@@ -246,7 +247,6 @@ def on_click(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def clasrasp(call):
-    global selectGroup
     markup_inline = types.InlineKeyboardMarkup()
     dbtn1 = types.InlineKeyboardButton('Сегодня', callback_data='Сегодня')
     dbtn2 = types.InlineKeyboardButton('Завтра', callback_data='Завтра')
@@ -380,276 +380,716 @@ def clasrasp(call):
 
     if call.data == '5а':
         selectGroup = '212'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5б':
         selectGroup = '213'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5в':
         selectGroup = '214'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5г':
         selectGroup = '215'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5д':
         selectGroup = '216'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5е':
         selectGroup = '217'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5ж':
         selectGroup = '218'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5з':
         selectGroup = '219'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5и':
         selectGroup = '220'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5к':
         selectGroup = '268'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5л':
         selectGroup = '269'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5м':
         selectGroup = '270'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '5н':
         selectGroup = '271'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6а':
         selectGroup = '221'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6г':
         selectGroup = '224'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6д':
         selectGroup = '225'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6е':
         selectGroup = '226'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6ж':
         selectGroup = '227'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6з':
         selectGroup = '228'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6б':
         selectGroup = '258'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '6в':
         selectGroup = '259'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7а':
         selectGroup = '229'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7б':
         selectGroup = '230'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7в':
         selectGroup = '231'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7г':
         selectGroup = '232'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7д':
         selectGroup = '233'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7е':
         selectGroup = '260'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7ж':
         selectGroup = '273'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '7з':
         selectGroup = '274'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8а':
         selectGroup = '235'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8б':
         selectGroup = '236'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8в':
         selectGroup = '237'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8г':
         selectGroup = '238'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8д':
         selectGroup = '239'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8е':
         selectGroup = '240'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8к':
         selectGroup = '244'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8ж':
         selectGroup = '261'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8з':
         selectGroup = '262'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '8и':
         selectGroup = '263'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9а':
         selectGroup = '245'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9б':
         selectGroup = '246'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9в':
         selectGroup = '247'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9г':
         selectGroup = '248'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9д':
         selectGroup = '249'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9е':
         selectGroup = '250'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9ж':
         selectGroup = '264'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9з':
         selectGroup = '265'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9и':
         selectGroup = '266'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '9к':
         selectGroup = '267'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '10а':
         selectGroup = '251'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '10б':
         selectGroup = '252'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '10в':
         selectGroup = '253'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '11а':
         selectGroup = '254'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '11б':
         selectGroup = '255'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     elif call.data == '11в':
         selectGroup = '256'
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(""f"UPDATE users SET group_id = {selectGroup} WHERE id = {user_id}""")
+        cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn1, dbtn2)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
@@ -657,7 +1097,16 @@ def clasrasp(call):
         try:
             selectDate = datetime.datetime.now()
             selectDate = selectDate.strftime('%Y-%m-%d')
-            selectDate = f'{selectDate}'
+            conn = sqlite3.connect('ids.db')
+            cur = conn.cursor()
+            user_id = call.from_user.id
+            cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+            selectGroup = cur.fetchall()
+            selectGroup = str(selectGroup)
+            selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            conn.commit()
+            cur.close()
+            conn.close()
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -682,7 +1131,16 @@ def clasrasp(call):
             selectDate = datetime.datetime.now()
             selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
-            selectDate = f'{selectDate}'
+            conn = sqlite3.connect('ids.db')
+            cur = conn.cursor()
+            user_id = call.from_user.id
+            cur.execute(""f"SELECT group_id FROM users WHERE id = {user_id}""")
+            selectGroup = cur.fetchall()
+            selectGroup= str(selectGroup)
+            selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            conn.commit()
+            cur.close()
+            conn.close()
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -690,6 +1148,7 @@ def clasrasp(call):
                 'selectDate[]': selectDate,
                 'type': 'group'
             }
+
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
