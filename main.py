@@ -7,7 +7,6 @@ import threading
 import sqlite3
 from telebot import apihelper
 import time
-from time import sleep
 
 
 apihelper.proxy = {'HTTP': 'httph://217.13.102.86:3128'}
@@ -52,37 +51,40 @@ url = 'https://rasp.milytin.ru/search'
 bot = telebot.TeleBot('6873531488:AAFAHq3x42Blr7ckvwY2wppxVIutiyRWfP8')
 
 
-def checkRasp(user_id):
+def checkRasp():
     while True:
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM users')
+        users = cur.fetchall()
+        cur.close()
+        conn.close()
+        infu = ''
         try:
-            selectDate = datetime.datetime.now() + datetime.timedelta(days=1)
+            selectDate = datetime.datetime.now()
+            selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
-            cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name FROM users WHERE id = ?)", (user_id,))
-            selectGroup = cur.fetchone()[0]
-            conn.commit()
-            cur.close()
-            conn.close()
-
+            selectDate = f'{selectDate}'
+            url = 'https://rasp.milytin.ru/search'
             params = {
-                'selectGroup': selectGroup,
+                'selectGroup': '248',
                 'selectTeacher': '222',
                 'selectPlace': '174',
                 'selectDate[]': selectDate,
                 'type': 'group'
             }
-
             response = requests.get(url, params=params)
-            data = json.loads(response.json())
-            message_text = ''
-            for item in data[0]:
-                for lesson in item:
-                    message_text += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.send_message(user_id, message_text)
+            data_str = response.json()
+            data = json.loads(data_str)
+            for user in users:
+                infu = f'{user[0]}'
+                bot.send_message(infu, 'Расписание обновилось!')
             time.sleep(50400)
-        except IndexError:
-            time.sleep(180)
+        except:
+            continue
+
+
+threading.Thread(target=checkRasp).start()
 
 
 @bot.message_handler(commands=['post23'])
@@ -141,7 +143,7 @@ def start(message):
     user_id = message.from_user.id
     conn = sqlite3.connect('ids.db')
     cur = conn.cursor()
-    cur.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, class_name TEXT, class_name_temp TEXT)''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, class_name TEXT, class_name_temp TEXT, page TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS classes (class_name TEXT, class_id TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS teachers (teacher_name TEXT, teacher_id TEXT)''')
     conn.commit()
@@ -154,6 +156,11 @@ def start(message):
             cur.execute('''INSERT INTO classes (class_name, class_id) VALUES (?, ?)''', (className, classId))
         for teacherName, teacherId in zip(teachersAll, teachersAllIds):
             cur.execute('''INSERT INTO teachers (teacher_name, teacher_id) VALUES (?, ?)''', (teacherName, teacherId))
+    conn.commit()
+    cur.execute('''SELECT id FROM users''')
+    secondSlot = cur.fetchall()
+    if (user_id,) not in secondSlot:
+        cur.execute('''INSERT INTO users (id, page) VALUES (?, ?)''', (user_id, 1))
     conn.commit()
     cur.close()
     conn.close()
@@ -171,7 +178,7 @@ def start(message):
     Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
     Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
     Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
-    Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachG')
+    Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
     markup_inline.row(Kbtn1, Kbtn2)
     markup_inline.row(Kbtn3, Kbtn4)
     markup_inline.row(Kbtn5)
@@ -187,10 +194,11 @@ def user_clas(message, clas, id):
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
-        cur.execute('INSERT INTO users (id, class_name) VALUES (?, ?)', (id, clas))
+        cur.execute('INSERT INTO users (id, class_name, page) VALUES (?, ?, ?)', (id, clas, 1))
         #threading.Thread(target=checkRasp, args=[id]).start()
     else:
         cur.execute("UPDATE users SET class_name = ? WHERE id = ?", (clas, id))
+        cur.execute("UPDATE users SET page = ? WHERE id = ?", (1, id))
     conn.commit()
     cur.close()
     conn.close()
@@ -225,7 +233,7 @@ def info(message):
         Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
         Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
         Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
-        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachG')
+        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
         markup_inline.row(Kbtn1, Kbtn2)
         markup_inline.row(Kbtn3, Kbtn4)
         markup_inline.row(Kbtn5)
@@ -253,6 +261,8 @@ def rasp(message):
     usid = message.from_user.id
     cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
     rows = cur.fetchall()
+    cur.execute('''UPDATE users SET page = 1''')
+    conn.commit()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
     cur.close()
@@ -266,7 +276,7 @@ def rasp(message):
         Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
         Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
         Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
-        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachG')
+        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
         markup_inline.row(Kbtn1, Kbtn2)
         markup_inline.row(Kbtn3, Kbtn4)
         markup_inline.row(Kbtn5)
@@ -306,7 +316,7 @@ def settings(message):
     Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
     Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
     Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
-    Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachG')
+    Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
     markup_inline.row(Kbtn1, Kbtn2)
     markup_inline.row(Kbtn3, Kbtn4)
     markup_inline.row(Kbtn5)
@@ -384,6 +394,12 @@ def clasrasp(call):
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
     def next_message_rasp_teach(clas):
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''UPDATE users SET page = 1''')
+        conn.commit()
+        cur.close()
+        conn.close()
         markup_inline.row(dbtn3, dbtn4)
         bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
 
@@ -472,36 +488,70 @@ def clasrasp(call):
         bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
         buttons_11.clear()
 
-    def generate_keyboard(page):
+    def generate_keyboard():
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
         back_button = types.InlineKeyboardButton(text='←', callback_data='back')
         next_button = types.InlineKeyboardButton(text='→', callback_data='next')
         for teacher in teachersAll[buttons_height * (page - 1): page*buttons_height:]:
-            teacher_but = button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'Q')
+            teacher_but = button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'G')
             teachers.append(teacher_but)
         inline.add(*teachers)
         inline.add(back_button, next_button)
         return inline
 
     if call.data == 'back' and page != 1:
-        page -= 1
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboard(page))
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''UPDATE users SET page = page - 1 WHERE id = (?)''', (user_id,))
+        conn.commit()
+        cur.execute('''SELECT page  FROM users WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboard())
 
     elif call.data == 'next':
-        page += 1
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboard(page))
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''UPDATE users SET page = page + 1 WHERE id = (?)''', (user_id,))
+        conn.commit()
+        cur.execute('''SELECT page  FROM users WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboard())
 
     if call.data == 'Teach':
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboard(page))
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboard())
 
-    def generate_keyboardG(page):
+    def generate_keyboardG():
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''SELECT page FROM users  WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
-        back_button = types.InlineKeyboardButton(text='←', callback_data='backG')
-        next_button = types.InlineKeyboardButton(text='→', callback_data='nextG')
+        back_button = types.InlineKeyboardButton(text='←', callback_data='backH')
+        next_button = types.InlineKeyboardButton(text='→', callback_data='nextH')
         for teacher in teachersAll[buttons_height * (page - 1): page*buttons_height:]:
             teacher_but = button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'C')
             teachers.append(teacher_but)
@@ -509,18 +559,34 @@ def clasrasp(call):
         inline.add(back_button, next_button)
         return inline
 
-    if call.data == 'backG' and page != 1:
-        page -= 1
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboardG(page))
+    if call.data == 'backH' and page != 1:
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''UPDATE users SET page = page - 1 WHERE id = (?)''', (user_id,))
+        cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboardG())
 
-    elif call.data == 'nextG':
-        page += 1
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboardG(page))
+    elif call.data == 'nextH':
+        user_id = call.from_user.id
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('''UPDATE users SET page = page + 1 WHERE id = (?)''', (user_id,))
+        cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
+        page = int(cur.fetchone()[0])
+        conn.commit()
+        cur.close()
+        conn.close()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboardG())
 
-    if call.data == 'TeachG':
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboardG(page))
+    if call.data == 'TeachH':
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboardG())
 
-    if call.data[-1] == 'V' and call.data[-2] != 'G':
+    if call.data[-1] == 'V':
         conn = sqlite3.connect('ids.db')
         cur = conn.cursor()
         user_id = call.from_user.id
@@ -609,6 +675,7 @@ def clasrasp(call):
 
     if call.data == 'СегодняTE':
         try:
+            page = 1
             selectDate = datetime.datetime.now()
             selectDate = selectDate.strftime('%Y-%m-%d')
             conn = sqlite3.connect('ids.db')
@@ -642,6 +709,7 @@ def clasrasp(call):
 
     elif call.data == 'ЗавтраTE':
         try:
+            page = 1
             selectDate = datetime.datetime.now()
             selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
@@ -663,16 +731,16 @@ def clasrasp(call):
                 'selectTeacher': selectTeacher,
                 'selectPlace': '174',
                 'selectDate[]': selectDate,
-                'type': 'group'
+                'type': 'teacher'
             }
-
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
             message = ''
             for item in data[0]:
                 for lesson in item:
-                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson[
+                        "place"] + '\n' + '-' + '\n'
             bot.send_message(call.message.chat.id, message)
         except IndexError:
             bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
