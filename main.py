@@ -60,28 +60,32 @@ def checkRasp():
         cur.close()
         conn.close()
         infu = ''
-        try:
-            selectDate = datetime.datetime.now()
-            selectDate = selectDate + datetime.timedelta(days=1)
-            selectDate = selectDate.strftime('%Y-%m-%d')
-            selectDate = f'{selectDate}'
-            url = 'https://rasp.milytin.ru/search'
-            params = {
-                'selectGroup': '248',
-                'selectTeacher': '222',
-                'selectPlace': '174',
-                'selectDate[]': selectDate,
-                'type': 'group'
-            }
-            response = requests.get(url, params=params)
-            data_str = response.json()
-            data = json.loads(data_str)
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        selectDate = f'{selectDate}'
+        url = 'https://rasp.milytin.ru/search'
+        params = {
+            'selectGroup': '248',
+            'selectTeacher': '222',
+            'selectPlace': '174',
+            'selectDate[]': selectDate,
+            'type': 'group'
+        }
+        response = requests.get(url, params=params)
+        data_str = response.json()
+        data = json.loads(data_str)
+        if data != []:
             for user in users:
                 infu = f'{user[0]}'
-                bot.send_message(infu, 'Расписание обновилось!')
+                try:
+                    bot.send_message(infu, 'Расписание обновилось!')
+                    raspMes = True
+                except:
+                    continue
+        if raspMes:
+            raspMes = False
             time.sleep(50400)
-        except:
-            continue
 
 
 threading.Thread(target=checkRasp).start()
@@ -372,6 +376,9 @@ def on_click(message):
 
     elif message.text.lower() == 'а':
         bot.send_message(message.chat.id, 'Двойку на!')
+
+    elif message.text.lower() == 'да':
+        bot.send_message(message.chat.id, 'Учиться пора!')
 
     elif message.text.lower() == 'опа':
         bot.reply_to(message, message.text)
