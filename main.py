@@ -313,7 +313,7 @@ def settings(message):
     cur.close()
     conn.close()
     markup_inline = types.InlineKeyboardMarkup()
-    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')
+    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')  #fvgbn
     Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6C')
     Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7C')
     Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8C')
