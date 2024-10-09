@@ -260,7 +260,17 @@ def info(message):
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
     cur.close()
     conn.close()
-    bot.send_message(chat_id = message.chat.id, text = f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
+    bot.send_message(chat_id = message.chat.id, text = f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание\n/tHelp - Попросить помощи\nПример: /tHelp помогите, мой класс не отображается!')
+
+
+@bot.message_handler(commands=['tHelp'])
+def tHelp(message):
+    mes = message.text[message.text.find(' '):]
+    ids = [6042204485, 1374973615]
+    requaier = message.from_user.username
+    for tex in ids:
+        bot.send_message(tex, f'Жалоба от @{requaier}:\n{mes[1:]}')
+    bot.send_message(message.chat.id, 'Ваша жалоба отправлена!')
 
 
 @bot.message_handler(commands=['rasp'])
