@@ -747,7 +747,7 @@ def clasrasp(call):
                 for lesson in item:
                     message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson[
                         "place"] + '\n' + '-' + '\n'
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=message)
+            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
