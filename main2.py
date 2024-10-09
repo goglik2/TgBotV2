@@ -19,24 +19,33 @@ page = 1
 global classesAll
 classesAll = [
     '5а', '5б', '5в', '5г', '5д', '5е', '5ж', '5з', '5и', '5к', '5л', '5м', '5н',
-    '6а', '6г', '6д', '6е', '6ж', '6з', '6б', '6в', '6и', '6к', '6л', '6м', '6н',
-    '7а', '7б', '7в', '7г', '7д', '7е', '7ж', '7з', '7и',
+    '6а', '6г', '6д', '6е', '6ж', '6з', '6б', '6в', '6и',
+    '7а', '7б', '7в', '7г', '7д', '7е', '7ж', '7з',
     '8а', '8б', '8в', '8г', '8д', '8е', '8к', '8ж', '8з', '8и',
     '9а', '9б', '9в', '9г', '9д', '9е', '9ж', '9з', '9и', '9к',
-    '10а', '10б', '10в', '10г',
-    '11а', '11б', '11в'
+    '10а', '10б', '10в',
+    '11а', '11б', '11в',
+    '1А', '1Б', '1В', '1Г', '1Д', '1Е', '1Ж', '1З', '1И', '1К', '1Л', '1М', '1Н', '1О', '1П', '1Р',
+    '2А', '2Б', '2В', '2Г', '2Д', '2Е', '2Ж', '2З', '2И', '2К', '2Л', '2М', '2Н', '2О', '2П', '2Р',
+    '3А', '3Б', '3В', '3Г', '3Д', '3Е', '3Ж', '3З', '3И', '3К', '3Л', '3М', '3Н',
+    '4А', '4Б', '4В', '4Г', '4Д', '4Е', '4Ж', '4З', '4И', '4К', '4Л', '4М'
 ]
 
 global classesAllIds
 classesAllIds = [
     '212', '213', '214', '215', '216', '217', '218', '219', '220', '268', '269', '270', '271',
-    '221', '224', '225', '226', '227', '228', '258', '259', '272', '442', '443', '444', '445',
-    '229', '230', '231', '232', '233', '260', '273', '274', '446',
+    '221', '224', '225', '226', '227', '228', '258', '259', '272',
+    '229', '230', '231', '232', '233', '260', '273', '274',
     '235', '236', '237', '238', '239', '240', '244', '261', '262', '263',
     '245', '246', '247', '248', '249', '250', '264', '265', '266', '267',
-    '251', '252', '253', '447',
-    '254', '255', '256'
+    '251', '252', '253',
+    '254', '255', '256',
+    '275', '276', '277', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '289', '290',
+    '291', '292', '293', '294', '295', '296', '297', '298', '299', '300', '301', '302', '303', '304', '305', '306',
+    '307', '308', '309', '310', '311', '312', '313', '314', '315', '316', '317', '318', '319',
+    '320', '321', '322', '323', '324', '325', '326', '327', '328', '329', '330', '331'
 ]
+
 
 global teachersAll
 teachersAll = ['Тучанская В.В.', 'Андриевская Н.И.', 'Логинова О.П.', 'Борзенина М.А.', 'Цыб Т.В.', 'Морозова Ю.А.', 'Петренко Н.С.', 'Коротких А.И.', 'Пилостаева А.О.', 'Некрасова Н.В.', 'Семушина И.Л.', 'Тараторина О.В.', 'Шилова В.А.', 'Стрелкова М.А.', 'Кубык К.Р.', 'Попова М.С.', 'Синева Т.А.', 'Санникова Е.А.', 'Кашина А.Ю.', 'Корнилова В.В.', 'Абрамова Н.С.', 'ВздороваТ.С./Коробов А.В.', 'Илларионова В.П.', 'Антонова В.П./Тихомирова Н.С.', 'Коргинова А.В.', 'Павлова Я.М.', 'Горбунова М.А.', 'Ларчина Т.В.', 'Соколова Е.Е.', 'Семочкина А.А.', 'Ципилева Т.А.', 'Шевченко А.А.', 'Фёдорова К.Р.', 'Бесова Л.А.', 'Бокарева А.А.', 'Горбатович А.А.', 'Аверина К.Е./Скребцова И.А.', 'Рябкова С.Н.', 'Джанасова Н.Н.', 'Кистанова Н.Л.', 'Крылова Т.В.', 'Пелевина Н.В.', 'Гаджиева М.Г.', 'Яичкова М.М.', 'Каронова С.Г.', 'Филиппова Т.В.', 'Савинова К.В.', 'Комарова Л.А.', 'Бурмистрова О.Ю.', 'Крутикова Я.В.', 'Мокина И.Р.', 'Царева М.А.', 'Савина И.В.', 'Кузнецова М.А.', 'Самсонова Т.М.', 'Костина М.В.', 'Хонина Е.А.', 'Панина Е.В.', 'Петровичева А.А.', 'Божко А.А.', 'Балакшин Р.Н.', 'Мащенка П.А.', 'Богданова Е.В.', 'Ананьина И.К.', 'Григорьева Д.А.', 'Алексеева Т.В.', 'Груздева И.Н.', 'Проскурина Е.Н.', 'Постникова О.В.', 'Гаврилова Н.Н.', 'Галова А.В', 'Смирнова Е.А.', 'Ильиных И.В.', 'Новичихина Т.С.', 'Патютько Е.А.', 'Гордеев М.А.', 'Коршунова Р.С.', 'Харчева Е.Н.', 'Соболева И.С.', 'Соболева Е.А.', 'Чистякова Ю.О.', 'Лебедева Т.В.', 'Флегантова Н.С.', 'Лясникова Н.Д.', 'Корзина Ю.В.', 'Караваева В.А.', 'Ананьина О.Н.', 'Горинова Д.В.', 'Васильев И.Н.', 'Щерба Е.Ю.', 'Першичева Е.В.', 'Петрова В.О.', 'Агеева Л.Г.', 'Матвева Е.А.', 'Туницкая О.Ю.', 'Гаврилова О.В.', 'Репкина А.В.', 'Елисеева О.Г.', 'Савинова О.В.', 'Заборихина Ю.Л.', 'Ярулина В.Р.', 'Васильева С.Н.', 'Мащенко П.А.', 'Кириллов А.А./Божко А.А.', 'Соболева А.Н.', 'Куражова Н.Ю.', 'Иванова С.Г./Божко А.А.', 'Галова А.В.', 'Синицына А.Н.', 'Федорова Л.В.', 'Манаев И.А.', 'Матвеева Е.А.', 'Громова Т.В.', 'Юсуфович С.А.', 'Смирнова В.А.', 'Лисоцкова О.Н.', 'Борзунова Ю.А.', 'Ситников П.Л.', 'Трифанова М.С.', 'Горушкина А.В.', 'Неизвестно', 'Калиняк Л.В.', 'Добровольский Е.С.', 'Иванова С.Г.', 'Коробов А.В.', 'Байрамова Л.С.', 'Смирнова В.А.:3', 'Николаева Т.В./Истоцкая Н.Н.', 'Божко А.А./Кириллов А.А.', 'Божко А.А./Иванова С.Г.', 'Ефипова М.П.', 'Кронштатова Е.А.', 'Неизвестно ', 'Булычева Н.Н./Полубабкина Л.Г.', 'Костина М.В. ', 'Хонина Е.А. ', 'Чистякова Ю.О. ', 'Постникова О.В. ', 'Юсуфович С.А. ', 'Смирнова В.А. ', 'Смирнова Е.А. ', 'Байрамова Л.С. ', 'Заборихина Ю.Л. ', 'Першичева Е.В. ', 'Федорова Л.В. ', 'Галова А.В. ,', 'Лебедева Т.В. ', 'Репкина А.В. ', 'Новичихина Т.С. ', 'Калиняк Л.В. ', 'Синицина А.Н.', 'Постникова О.В.,', 'Галова А.В.,', 'Зона релаксации', 'Табунов И.А.', 'Глухова О.А.', 'Неизвестоно', 'Горинава Д.В.', 'Неизветно', 'Кириллов А.А.', 'Качкина А.Н.', 'Фёдоров М.Д.', 'Неклюдова Е.А.', 'Кукушкина А.А.', 'Коробов А.В.:', 'Фёдорова М.Д.', 'Белякова О.С.', 'Семушина И.А.', 'Смирнов А.А.', 'Английский язык', 'Геометрия', 'Большой', 'Разлетова В.В.', 'Булычева Н.Н.Полубабкина Л.Г.', 'Божко А.А.Иванова С.Г.', 'в/у "Разговоры о важном"', 'Электив Практическая география', 'Биология', 'Разлетова В.В.         ', 'Корзина Ю.В.   ', 'Чистякова Ю.О', 'Заборихина Ю.Л', 'Костина М.В', 'Хонина Е.А', 'Коршунова Р.С', 'Постникова О.В', 'Смирнова Е.А', 'Юсуфович С.А', 'Смирнова В.А', 'Байрамова Л.С', 'Ефипова М.П', 'Першичева Е.В', 'Федорова Л.В', 'Манаев И.А', 'Лебедева Т.В', 'Агеева Л.Г', 'Борзунова Ю.А', 'Репкина А.В', 'Фотосъёмка для летописи школы', 'Алгебра', 'Литература', 'География', 'Электив Биология в задачах', '/в/д "Математический практикум"', 'АКР по руссому языку', 'Информатика', 'Неизвестно.', 'Профтестирование', 'Манаев', '15.00-16.00', '12.00-13.00', '13.00-14.00', '14.00-15.00', 'Разлетова В.В.   ', 'Стеценко Н.Д.', 'Разлетова В.В', 'Калиняк Л.Г.', '        Разлетова В.В. ', 'Кривоборская Виктория Александровна.', 'Корзникова Юлия Сергеевна ', '/Федорова Л.В.', 'Ученые - в школы                         ', 'Разлетова В.В  ', 'Завьялова А.Н.', '/Коршунова Р.С.', 'ВПР география', 'м', '/Английский язык', 'Малый актовый зал', 'Немецкий язык', '/Немецкий язык', 'Иванова С.Г.     ', 'Божко А.А. ', 'Иванова С.Г.     /классный час', 'Иванова С.Г.     /зона релаксации', 'АКР по русскому языку', '/Галова А.В.', '   Классный час         А204(Р.яз)', 'Русский язык', 'Химия', 'АКР по математике        ', 'АКР по математике    ', 'АКР по математике             ', 'Ефипова М.П. А306(ин.яз)', '/Информатика', 'Родная литература', 'в/д "Математика в вопросах и ответах"', 'Постникова О.В..', 'Смирнова В.А..', 'Постникова О.В./Постникова О.В.', 'Феофанова Е.А.', 'Нетзвсетно', 'Консультация по химии Гаврилова О.В. Г2', 'Консультация по информатике Манаев И.А./Смирнова Е.А. Г104.1/Г104', 'Консультация по русскому языку Щерба Е.Ю. дистанционно', 'Щерба Е.Ю. Дистанционно', 'Консультация по математике Елисеева О.Г. Большой читальный зал', 'Консультация по русскому языку Ананьина О.Н. Г204', 'Консультация по математике 1п/гр Петрова В.О. Б142(ОБЖ)', 'Консультация по обществознанию Лясникова Н.Д. Г2', 'Горелова А.В.', 'Мелкова Е.Ю.', 'Твердохлеб К.', 'Кушева Т.А.', 'Елмалджиди Е.Г.', 'Крыскина К.А.', 'Истоцкая Н.Н.', 'Истоцкая Н.Н./Николаева Т.В.', 'Николаева Т.В.', 'Нестерова В.И.', 'Кочуева А.С.', 'Мартынов П.С.', 'Щукина О.И.', 'Калёва В.В.', 'Череповецкий Н.З.', 'Коковкина Е.С.', 'Востокова А.С.', 'Ситникова Я.В.', 'Шведова А.А.', 'Вакансия ин.яз', 'Андреева А.С.', 'Кумбула М.С.', 'Вакансия 1 кл', 'Агапова М.М.', 'Булычева А.А.', 'Куракина О.Г.', 'Коптяева О.А.', 'Короглуева А.И.', 'Кузнецова Е.И.', 'Петяева А.В.', 'Угрюмова В.И.', 'Мартынив А.И.', 'Тихомирова Н.С./Антонова В.П.', 'Черняева С.Е.', 'Кривоборская В.А.', 'Скребцова И.А. /Саругланова Ш.З.', 'Фомина Ю.И./Вакансия', 'Корзникова Ю.С.', 'Вздорова Т.С./Фомина Ю.И.', 'Лебедева Ю.А.', 'Елмаджиди Е.Г.', 'Курникова П.В.', 'Федорова К.Р.', 'Овчинникова Т.В.', 'Зона', 'Першичева Е.', 'Фомина Ю.И.', 'Большой актовый зал', 'Фомина Ю.И..', 'Николаева Т.В./Николаева Т.В.', 'Иванова С.Г../Иванова С.Г.', 'Иванова С.Г./Иванова С.Г.', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Коркина Н.А.', ' ', '', ' ', ' ', ' ', ' ', ' ', '.', ' ', ' ', 'Большой читальный зал-Г104.3', ' ', ' ', 'Истоцкая Н.Н./Истоцкая Н.Н.', 'Калева В.В.', 'Хребтова А.Р.', 'Белякова О.С. ', ' Белякова О.С. А205(р.яз)', 'Твердохлеб К.:', 'Першичева Е.В.:', 'Чистякова Ю.О.:', 'Щукина О.И.:', 'Хонина Е.А.:', 'Заборихина Ю.Л.:', 'Постникова О.В.:', 'Ефипова М.П.:', 'Галова А.В.:', 'Смирнова Е.А.:', 'Лебедева Т.В.:', 'Федорова Л.В.:', 'Байрамова Л.С.:', 'Г104.3-читальный зал', 'Мащенко М.П.', 'Юный Инженер', 'Божко А.А. (девочки)', 'Караваева В.А., Лисоцкова О.Н.', 'Иванова С.Г.(мальчики)', 'ГориноваД.В.', '/Электив Химия: от простого к сложному', 'Юноши 2007 г.р.', 'Юноши 2007 г.р. ', '/Профтестирование(военкомат) Юноши 2007 г.р.', 'военкомат', 'История', '/', 'Профтестирование(военкомат) Юноши 2007 г.р.', 'Иванова Е.А.', 'Мухина Л.Н.', 'Соколова И.В.', 'Божко А.А.(девочки)/(мальчики)', 'Божко А.А./Божко А.А.', 'Божко А.А.(девочки)', 'Сулейманова А.В.', 'Сулейманова В.А.', 'Зона релсакации', 'зона релаксации', 'Харчева Е.А.', 'Горелова А.В', 'Панина Е.В./Гаврилова Н.Н.', 'Куражова Н.Ю./Матвеева Е.А.', 'Петровичева А.А./Корзина Ю.В.', 'Богданова Е.В./Смирнова Е.А.', 'Харчева Е.Н./Лебедеа Т.В.', 'Электив История: теория и практика Караваева В.А. дистанционно', 'Агеева А.Г  ', 'Истоцкая Н.Н.(девочки)', 'Николаева Т.В.(мальчики)', 'Крыскина К. А.', 'Коркина Н.А..', 'Шешуев Г.А.', 'Базовая И.Ю.', 'Торочкова А.А.', 'Ключникова К.А.', 'Сергеева А.Д.', 'Классный час', 'Вакансия Био', 'Малинина Д.А.', 'Мокина А.М.', 'Мурашкина С.В., Мухина Л.Н.', 'Мокина А.М', 'Мокина А.В.', 'Обществознание', '/Электив Компьютерная грамотност', 'Электив Химия: от простого к сложному', 'Чистякова Ю.О.:3', 'Твердохлеб К.К.', 'Чистякова Ю.О..', 'Истоцкая Н.Н.(обе группы)', 'Истоцкая Н.Н.(только группа Истоцкой Н.Н.)', 'Мурашкина С.В.', 'Истоцкая Н.Н.(только группа Истоцкой Н.Н.', 'Горинова Д.В', 'Смирнова К.В.', 'Истоцкая Н.Н.(обе группы.)', 'Ситников П.С.']
@@ -50,20 +59,19 @@ url = 'https://rasp.milytin.ru/search'
 
 bot = telebot.TeleBot('6873531488:AAFAHq3x42Blr7ckvwY2wppxVIutiyRWfP8')
 
+conn = sqlite3.connect('ids.db')
+cur = conn.cursor()
+
 @bot.message_handler(commands=['fif'])
-def i6(m):
-    print(m)
+def i6():
+    conn.commit()
 
 
 def checkRasp():
     while True:
         raspMes = False
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
-        cur.close()
-        conn.close()
         infu = ''
         selectDate = datetime.datetime.now()
         selectDate = selectDate + datetime.timedelta(days=1)
@@ -96,14 +104,10 @@ def checkRasp():
 #threading.Thread(target=checkRasp).start()
 
 
-@bot.message_handler(commands=['postToAll23'])
-def post(message):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
+@bot.message_handler(commands=['post23'])
+async def post(message):
     cur.execute('SELECT * FROM users')
     users = cur.fetchall()
-    cur.close()
-    conn.close()
     infu = ''
     for user in users:
         try:
@@ -116,16 +120,12 @@ def post(message):
 @bot.message_handler(commands=['mg'])
 def mg(message):
     user_id = message.from_user.id
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     cur.execute('SELECT * FROM users')
     users = cur.fetchall()
     cur.execute('SELECT * FROM classes')
     classes = cur.fetchall()
     cur.execute('SELECT * FROM teachers')
     teachers = cur.fetchall()
-    cur.close()
-    conn.close()
     if user_id == 6042204485 or user_id == 1374973615 or user_id == 5818281440:
         inf = 0
         for user in users:
@@ -133,15 +133,15 @@ def mg(message):
 
         classesinf = ''
         for classesi in classes:
-            #classesinf += f'{classesi}\n'
-            print(classesi)
+            classesinf += f'{classesi}\n'
 
         for teacher in teachers:
             print(teacher)
 
         bot.send_message(message.chat.id, f'Количество пользователей: {inf}')
-        bot.send_document(message.chat.id, open(r'main.py', 'rb'))
-        bot.send_document(message.chat.id, open(r'ids.db', 'rb'))
+        bot.send_message(message.chat.id, classesinf)
+        bot.send_message(message.chat.id, 'Список с учителями посмотрите в конссоли')
+        bot.send_document(message.chat.id, open(r'main2.py', 'rb'))
     else:
         bot.send_message(message.chat.id, f'Ты откуда это узнал?')
 
@@ -149,8 +149,6 @@ def mg(message):
 @bot.message_handler(commands=['start'])
 def start(message):
     user_id = message.from_user.id
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, class_name TEXT, class_name_temp TEXT, page TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS classes (class_name TEXT, class_id TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS teachers (teacher_name TEXT, teacher_id TEXT)''')
@@ -170,8 +168,6 @@ def start(message):
     if (user_id,) not in secondSlot:
         cur.execute('''INSERT INTO users (id, page) VALUES (?, ?)''', (user_id, 1))
     conn.commit()
-    cur.close()
-    conn.close()
     if user_id == 6042204485 or user_id == 1374973615 or user_id == 5818281440:
         bot.send_message(message.chat.id, f'Слався о великий создатель {message.from_user.first_name}')
     elif user_id == 1623556809 or user_id == 1544399322:
@@ -179,14 +175,20 @@ def start(message):
     else:
         bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name}')
     markup_inline = types.InlineKeyboardMarkup()
-    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-    Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-    Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-    Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-    Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-    Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-    Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
+    kkbtn1 = types.InlineKeyboardButton('1 класс', callback_data='1C')
+    kkbtn2 = types.InlineKeyboardButton('2 класс', callback_data='2C')
+    kkbtn3 = types.InlineKeyboardButton('3 класс', callback_data='3C')
+    kkbtn4 = types.InlineKeyboardButton('4 класс', callback_data='4C')
+    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')
+    Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6C')
+    Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7C')
+    Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8C')
+    Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
+    Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
+    Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
     Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
+    markup_inline.row(kkbtn1, kkbtn2)
+    markup_inline.row(kkbtn3, kkbtn4)
     markup_inline.row(Kbtn1, Kbtn2)
     markup_inline.row(Kbtn3, Kbtn4)
     markup_inline.row(Kbtn5)
@@ -197,8 +199,6 @@ def start(message):
 
 
 def user_clas(message, clas, id):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
@@ -208,8 +208,6 @@ def user_clas(message, clas, id):
         cur.execute("UPDATE users SET class_name = ? WHERE id = ?", (clas, id))
         cur.execute("UPDATE users SET page = ? WHERE id = ?", (1, id))
     conn.commit()
-    cur.close()
-    conn.close()
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton('Расписание')
     btn2 = types.KeyboardButton('Помощь')
@@ -218,54 +216,51 @@ def user_clas(message, clas, id):
     markup.row(btn1)
     markup.row(btn2, btn4)
     markup.row(btn3)
-    bot.send_message(message.chat.id, f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание\nВаш класс: {clas}', reply_markup=markup)
+    bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
+    bot.send_message(message.chat.id, text = f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание\nВаш класс: {clas}', reply_markup=markup)
 
 
 @bot.message_handler(commands=['help'])
 def info(message):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     usid = message.from_user.id
     cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
     rows = cur.fetchall()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
-    cur.close()
-    conn.close()
     if clas == '':
         markup_inline = types.InlineKeyboardMarkup()
-        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
+        kkbtn1 = types.InlineKeyboardButton('1 класс', callback_data='1C')
+        kkbtn2 = types.InlineKeyboardButton('2 класс', callback_data='2C')
+        kkbtn3 = types.InlineKeyboardButton('3 класс', callback_data='3C')
+        kkbtn4 = types.InlineKeyboardButton('4 класс', callback_data='4C')
+        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')
+        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6C')
+        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7C')
+        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8C')
+        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
+        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
+        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
         Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
+        markup_inline.row(kkbtn1, kkbtn2)
+        markup_inline.row(kkbtn3, kkbtn4)
         markup_inline.row(Kbtn1, Kbtn2)
         markup_inline.row(Kbtn3, Kbtn4)
         markup_inline.row(Kbtn5)
         markup_inline.row(Kbtn6)
         markup_inline.row(Kbtn7)
         markup_inline.row(Kbtn8)
-        bot.send_message(message.chat.id, 'Укажите ваш класс:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = message.chat.id, message_id = message.message_id, text = 'Укажите ваш класс:', reply_markup=markup_inline)
         return
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     usid = message.from_user.id
     cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
     rows = cur.fetchall()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
-    cur.close()
-    conn.close()
-    bot.send_message(message.chat.id,f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
+    bot.send_message(chat_id = message.chat.id, text = f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание')
 
 
 @bot.message_handler(commands=['rasp'])
 def rasp(message):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     usid = message.from_user.id
     cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
     rows = cur.fetchall()
@@ -273,28 +268,32 @@ def rasp(message):
     conn.commit()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
-    cur.close()
-    conn.close()
     if clas == '':
         markup_inline = types.InlineKeyboardMarkup()
-        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
+        kkbtn1 = types.InlineKeyboardButton('1 класс', callback_data='1C')
+        kkbtn2 = types.InlineKeyboardButton('2 класс', callback_data='2C')
+        kkbtn3 = types.InlineKeyboardButton('3 класс', callback_data='3C')
+        kkbtn4 = types.InlineKeyboardButton('4 класс', callback_data='4C')
+        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')
+        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6C')
+        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7C')
+        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8C')
+        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
+        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
+        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
         Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
+        markup_inline.row(kkbtn1, kkbtn2)
+        markup_inline.row(kkbtn3, kkbtn4)
         markup_inline.row(Kbtn1, Kbtn2)
         markup_inline.row(Kbtn3, Kbtn4)
         markup_inline.row(Kbtn5)
         markup_inline.row(Kbtn6)
         markup_inline.row(Kbtn7)
         markup_inline.row(Kbtn8)
-        bot.send_message(message.chat.id, 'Укажите ваш класс:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = message.chat.id, message_id = message.message_id, text = 'Укажите ваш класс:', reply_markup=markup_inline)
         return
     markup_inline = types.InlineKeyboardMarkup()
-    if clas[0] != '1' and clas[0] != '0' and clas[0] != '5' and clas[0] != '6' and clas[0] != '7' and clas[0] != '8' and clas[0] != '9':
+    if clas[-2] == '1' and clas[-2] == '0' and clas[-2] == '5' and clas[-2] == '6' and clas[-2] == '7' and clas[-2] == '8' and clas[-2] == '9' and clas[-2] == 2 and clas[-2] == 3 and clas[-2] == 4:
         bbtn1 = types.InlineKeyboardButton(f'{clas}', callback_data=f'{clas}' + 'G')
     else:
         bbtn1 = types.InlineKeyboardButton(f'{clas}', callback_data=f'{clas}' + 'V')
@@ -302,36 +301,38 @@ def rasp(message):
     bbtn3 = types.InlineKeyboardButton('Учителя', callback_data='Teach')
     markup_inline.row(bbtn1, bbtn2)
     markup_inline.row(bbtn3)
-    bot.send_message(message.chat.id, 'Что вы хотите посмотреть?', reply_markup=markup_inline)
+    bot.send_message(message.chat.id, text = 'Что вы хотите посмотреть?', reply_markup=markup_inline)
 
 
 @bot.message_handler(commands=['settings'])
 def settings(message):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
     usid = message.from_user.id
     cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
     rows = cur.fetchall()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
-    cur.close()
-    conn.close()
     markup_inline = types.InlineKeyboardMarkup()
-    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-    Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-    Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-    Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-    Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-    Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-    Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
+    kkbtn1 = types.InlineKeyboardButton('1 класс', callback_data='1C')
+    kkbtn2 = types.InlineKeyboardButton('2 класс', callback_data='2C')
+    kkbtn3 = types.InlineKeyboardButton('3 класс', callback_data='3C')
+    kkbtn4 = types.InlineKeyboardButton('4 класс', callback_data='4C')
+    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5C')
+    Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6C')
+    Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7C')
+    Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8C')
+    Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9C')
+    Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10C')
+    Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11C')
     Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
+    markup_inline.row(kkbtn1, kkbtn2)
+    markup_inline.row(kkbtn3, kkbtn4)
     markup_inline.row(Kbtn1, Kbtn2)
     markup_inline.row(Kbtn3, Kbtn4)
     markup_inline.row(Kbtn5)
     markup_inline.row(Kbtn6)
     markup_inline.row(Kbtn7)
     markup_inline.row(Kbtn8)
-    bot.send_message(message.chat.id, 'Укажите ваш класс:', reply_markup=markup_inline)
+    bot.send_message(chat_id = message.chat.id, text = 'Укажите ваш класс:', reply_markup=markup_inline)
 
 
 @bot.message_handler(func=lambda message: True)
@@ -354,8 +355,26 @@ def on_click(message):
     elif message.text.lower() == 'нет':
         bot.send_message(message.chat.id, 'пятиклассника ответ!')
 
+    elif message.text.lower() == 'капибара':
+        bot.send_message(message.chat.id, 'Что?')
+
+    elif message.text.lower() == 'утюг':
+        bot.send_message(message.chat.id, 'Причём это тут?')
+
+    elif message.text.lower() == 'уксус':
+        bot.send_message(message.chat.id, 'Ладно...')
+
+    elif message.text.lower() == 'женщина':
+        bot.send_message(message.chat.id, 'Где!')
+
+    elif message.text.lower() == 'девушка':
+        bot.send_message(message.chat.id, 'Где!')
+
     elif message.text.lower() == 'владимир путин':
         bot.send_message(message.chat.id, 'Молодец!\nПолитик, лидер и боец!')
+
+    elif message.text.lower() == 'привет':
+        bot.send_message(message.chat.id, 'привет')
 
     elif message.text.lower() == 'великолепно':
         bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
@@ -384,32 +403,34 @@ def clasrasp(call):
 
     def next_message_rasp(clas):
         markup_inline.row(dbtn1, dbtn2)
-        bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите дату', reply_markup=markup_inline)
 
     def next_message_rasp_teach(clas):
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''UPDATE users SET page = 1''')
         conn.commit()
-        cur.close()
-        conn.close()
         markup_inline.row(dbtn3, dbtn4)
-        bot.send_message(call.message.chat.id, 'Выберите дату', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите дату', reply_markup=markup_inline)
 
     if call.data == 'All':
-        kbtn42 = types.InlineKeyboardButton('5 класс', callback_data='5')
-        kbtn43 = types.InlineKeyboardButton('6 класс', callback_data='6')
-        kbtn44 = types.InlineKeyboardButton('7 класс', callback_data='7')
-        kbtn45 = types.InlineKeyboardButton('8 класс', callback_data='8')
-        kbtn46 = types.InlineKeyboardButton('9 класс', callback_data='9')
-        kbtn47 = types.InlineKeyboardButton('10 класс', callback_data='10')
-        kbtn48 = types.InlineKeyboardButton('11 класс', callback_data='11')
-        markup_inline.row(kbtn42, kbtn43)
-        markup_inline.row(kbtn44, kbtn45)
-        markup_inline.row(kbtn46)
-        markup_inline.row(kbtn47)
-        markup_inline.row(kbtn48)
-        bot.send_message(call.message.chat.id, 'Выберите класс:', reply_markup= markup_inline)
+        kkbtn1 = types.InlineKeyboardButton('1 класс', callback_data='1')
+        kkbtn2 = types.InlineKeyboardButton('2 класс', callback_data='2')
+        kkbtn3 = types.InlineKeyboardButton('3 класс', callback_data='3')
+        kkbtn4 = types.InlineKeyboardButton('4 класс', callback_data='4')
+        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5')
+        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6')
+        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7')
+        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8')
+        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9')
+        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10')
+        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11')
+        markup_inline.row(kkbtn1, kkbtn2)
+        markup_inline.row(kkbtn3, kkbtn4)
+        markup_inline.row(Kbtn1, Kbtn2)
+        markup_inline.row(Kbtn3, Kbtn4)
+        markup_inline.row(Kbtn5)
+        markup_inline.row(Kbtn6)
+        markup_inline.row(Kbtn7)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите класс:', reply_markup= markup_inline)
 
     if call.data == '5':
         buttons_five = []
@@ -418,78 +439,114 @@ def clasrasp(call):
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_five.append(button)
         markup_inline.add(*buttons_five)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_five.clear()
 
     if call.data == '6':
         buttons_six = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[13: 26:]:
+        for clas in classesAll[13: 22:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_six.append(button)
         markup_inline.add(*buttons_six)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_six.clear()
 
     if call.data == '7':
         buttons_seven = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[26: 35:]:
+        for clas in classesAll[22: 30:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_seven.append(button)
         markup_inline.add(*buttons_seven)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_seven.clear()
 
     if call.data == '8':
         buttons_8 = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[35: 45:]:
+        for clas in classesAll[30: 40:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_8.append(button)
         markup_inline.add(*buttons_8)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_8.clear()
 
     if call.data == '9':
         buttons_9 = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[45: 55:]:
+        for clas in classesAll[40: 50:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_9.append(button)
         markup_inline.add(*buttons_9)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_9.clear()
 
     if call.data == '10':
         buttons_10 = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[55: 59:]:
+        for clas in classesAll[50: 53:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_10.append(button)
         markup_inline.add(*buttons_10)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_10.clear()
 
     if call.data == '11':
         buttons_11 = []
         inline = types.InlineKeyboardMarkup(row_width=2)
-        for clas in classesAll[59: 62:]:
+        for clas in classesAll[53: 56:]:
             button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
             buttons_11.append(button)
         markup_inline.add(*buttons_11)
-        bot.send_message(call.message.chat.id, 'Выберите букву:', reply_markup=markup_inline)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_11.clear()
+
+    if call.data == '1':
+        buttons_1 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[56: 72:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
+            buttons_1.append(button)
+        markup_inline.add(*buttons_1)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
+        buttons_1.clear()
+
+    if call.data == '2':
+        buttons_2 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[72: 88:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
+            buttons_2.append(button)
+        markup_inline.add(*buttons_2)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
+        buttons_2.clear()
+
+    if call.data == '3':
+        buttons_3 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[88: 101:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
+            buttons_3.append(button)
+        markup_inline.add(*buttons_3)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
+        buttons_3.clear()
+
+    if call.data == '4':
+        buttons_4 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[101: 114:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'V')
+            buttons_4.append(button)
+        markup_inline.add(*buttons_4)
+        bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
+        buttons_4.clear()
 
     def generate_keyboard():
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
@@ -504,28 +561,20 @@ def clasrasp(call):
 
     if call.data == 'back' and page != 1:
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''UPDATE users SET page = page - 1 WHERE id = (?)''', (user_id,))
         conn.commit()
         cur.execute('''SELECT page  FROM users WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboard())
 
     elif call.data == 'next':
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''UPDATE users SET page = page + 1 WHERE id = (?)''', (user_id,))
         conn.commit()
         cur.execute('''SELECT page  FROM users WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboard())
 
     if call.data == 'Teach':
@@ -533,13 +582,9 @@ def clasrasp(call):
 
     def generate_keyboardG():
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''SELECT page FROM users  WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
@@ -554,65 +599,45 @@ def clasrasp(call):
 
     if call.data == 'backH' and page != 1:
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''UPDATE users SET page = page - 1 WHERE id = (?)''', (user_id,))
         cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboardG())
 
     elif call.data == 'nextH':
         user_id = call.from_user.id
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         cur.execute('''UPDATE users SET page = page + 1 WHERE id = (?)''', (user_id,))
         cur.execute('''SELECT page FROM users WHERE id = (?)''', (user_id,))
         page = int(cur.fetchone()[0])
         conn.commit()
-        cur.close()
-        conn.close()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboardG())
 
     if call.data == 'TeachH':
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboardG())
 
-    if call.data[-1] == 'V':
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
+    if call.data[-1] == 'V' and call.data[-2] != '5' and call.data[-2] != '6' and call.data[:-2] != '7' and call.data[-2] != '8'and call.data[-2] != '9'and call.data[-2] != '0' and call.data[-2] != '1' and call.data[-2] != '2' and call.data[-2] != '3' and call.data[-2] != '4':
         user_id = call.from_user.id
         cur.execute("""UPDATE users SET class_name_temp = ? WHERE id = ?""", (call.data[:-1], user_id))
         conn.commit()
-        cur.close()
-        conn.close()
         next_message_rasp(call)
 
     if call.data[-1] == 'G':
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
         user_id = call.from_user.id
-        cur.execute("""UPDATE users SET class_name_temp = ? WHERE id = ?""", (call.data[:-1], user_id))
+        cur.execute("""UPDATE users SET class_name_temp = ? WHERE id = ?""", (call.data[:-1], user_id)) #ZZZZZZZZZZZZZZZZZZZZZZVVVVVVVVVVVV
         conn.commit()
-        cur.close()
-        conn.close()
         next_message_rasp_teach(call)
 
     if call.data == 'Сегодня':
         try:
             selectDate = datetime.datetime.now()
             selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
             user_id = call.from_user.id
             cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
             selectGroup = cur.fetchall()
             selectGroup = str(selectGroup)
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
-            cur.close()
-            conn.close()
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -627,9 +652,9 @@ def clasrasp(call):
             for item in data[0]:
                 for lesson in item:
                     message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.send_message(call.message.chat.id, message)
+            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
-            bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
 
     elif call.data == 'Завтра':
@@ -637,16 +662,12 @@ def clasrasp(call):
             selectDate = datetime.datetime.now()
             selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
             user_id = call.from_user.id
-            cur.execute('''SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)''', (user_id, ))
-            selectGroup = cur.fetchall()[0]
+            cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
+            selectGroup = cur.fetchone()[0]
             selectGroup= str(selectGroup)
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
-            cur.close()
-            conn.close()
             params = {
                 'selectGroup': selectGroup,
                 'selectTeacher': '222',
@@ -662,25 +683,21 @@ def clasrasp(call):
             for item in data[0]:
                 for lesson in item:
                     message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.send_message(call.message.chat.id, message)
+            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
-            bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
     if call.data == 'СегодняTE':
         try:
             page = 1
             selectDate = datetime.datetime.now()
             selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
             user_id = call.from_user.id
             cur.execute("SELECT teacher_id FROM teachers WHERE teacher_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
             selectTeacher = cur.fetchall()
             selectTeacher = str(selectTeacher)
             selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
-            cur.close()
-            conn.close()
             params = {
                 'selectGroup': '215',
                 'selectTeacher': selectTeacher,
@@ -695,9 +712,9 @@ def clasrasp(call):
             for item in data[0]:
                 for lesson in item:
                     message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.send_message(call.message.chat.id, message)
+            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
-            bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
 
     elif call.data == 'ЗавтраTE':
@@ -706,8 +723,6 @@ def clasrasp(call):
             selectDate = datetime.datetime.now()
             selectDate = selectDate + datetime.timedelta(days=1)
             selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
             user_id = call.from_user.id
             cur.execute(
                 "SELECT teacher_id FROM teachers WHERE teacher_name = (SELECT class_name_temp FROM users WHERE id = ?)",
@@ -717,8 +732,6 @@ def clasrasp(call):
             selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(
                 ",", "").replace("'", "").replace("'", "")
             conn.commit()
-            cur.close()
-            conn.close()
             params = {
                 'selectGroup': '215',
                 'selectTeacher': selectTeacher,
@@ -734,140 +747,139 @@ def clasrasp(call):
                 for lesson in item:
                     message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson[
                         "place"] + '\n' + '-' + '\n'
-            bot.send_message(call.message.chat.id, message)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=message)
         except IndexError:
-            bot.send_message(call.message.chat.id, 'Расписание ещё не выложили!')
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
+    if call.data == '5C':
+        buttons_five = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[0: 13:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_five.append(button)
+        markup_inline.add(*buttons_five)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_five.clear()
 
-    if call.data == '5P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn1 = types.InlineKeyboardButton('5а', callback_data='5аC')
-        kbtn2 = types.InlineKeyboardButton('5б', callback_data='5бC')
-        kbtn3 = types.InlineKeyboardButton('5в', callback_data='5вC')
-        kbtn4 = types.InlineKeyboardButton('5г', callback_data='5гC')
-        kbtn5 = types.InlineKeyboardButton('5д', callback_data='5дC')
-        kbtn6 = types.InlineKeyboardButton('5е', callback_data='5еC')
-        kbtn7 = types.InlineKeyboardButton('5ж', callback_data='5жC')
-        kbtn8 = types.InlineKeyboardButton('5з', callback_data='5зC')
-        kbtn42 = types.InlineKeyboardButton('5и', callback_data='5иC')
-        kbtn43 = types.InlineKeyboardButton('5к', callback_data='5кC')
-        kbtn44 = types.InlineKeyboardButton('5л', callback_data='5лC')
-        kbtn45 = types.InlineKeyboardButton('5м', callback_data='5мC')
-        kbtn46 = types.InlineKeyboardButton('5н', callback_data='5нC')
-        markup_inline.row(kbtn1, kbtn2)
-        markup_inline.row(kbtn3, kbtn4)
-        markup_inline.row(kbtn5, kbtn6)
-        markup_inline.row(kbtn7, kbtn8)
-        markup_inline.row(kbtn42, kbtn43)
-        markup_inline.row(kbtn44, kbtn45)
-        markup_inline.row(kbtn46)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '6C':
+        buttons_six = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[13: 22:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_six.append(button)
+        markup_inline.add(*buttons_six)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_six.clear()
 
-    elif call.data == '6P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn9 = types.InlineKeyboardButton('6а', callback_data='6aC')
-        kbtn10 = types.InlineKeyboardButton('6б', callback_data='6бC')
-        kbtn11 = types.InlineKeyboardButton('6в', callback_data='6вC')
-        kbtn12 = types.InlineKeyboardButton('6г', callback_data='6гC')
-        kbtn13 = types.InlineKeyboardButton('6д', callback_data='6дC')
-        kbtn14 = types.InlineKeyboardButton('6е', callback_data='6еC')
-        kbtn47 = types.InlineKeyboardButton('6ж', callback_data='6жC')
-        kbtn48 = types.InlineKeyboardButton('6з', callback_data='6зC')
-        kbtn49 = types.InlineKeyboardButton('6и', callback_data='6иC')
-        kbtn56 = types.InlineKeyboardButton('6к', callback_data='6кC')
-        kbtn57 = types.InlineKeyboardButton('6л', callback_data='6лC')
-        kbtn58 = types.InlineKeyboardButton('6м', callback_data='6мC')
-        kbtn59 = types.InlineKeyboardButton('6н', callback_data='6нC')
-        markup_inline.row(kbtn9, kbtn10)
-        markup_inline.row(kbtn11, kbtn12)
-        markup_inline.row(kbtn13, kbtn14)
-        markup_inline.row(kbtn47, kbtn48)
-        markup_inline.row(kbtn49, kbtn56)
-        markup_inline.row(kbtn57, kbtn58)
-        markup_inline.row(kbtn59)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '7C':
+        buttons_seven = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[22: 30:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_seven.append(button)
+        markup_inline.add(*buttons_seven)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_seven.clear()
 
-    elif call.data == '7P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn15 = types.InlineKeyboardButton('7а', callback_data='7аC')
-        kbtn16 = types.InlineKeyboardButton('7б', callback_data='7бC')
-        kbtn17 = types.InlineKeyboardButton('7в', callback_data='7вC')
-        kbtn18 = types.InlineKeyboardButton('7г', callback_data='7гC')
-        kbtn19 = types.InlineKeyboardButton('7д', callback_data='7дC')
-        kbtn20 = types.InlineKeyboardButton('7е', callback_data='7еC')
-        kbtn21 = types.InlineKeyboardButton('7ж', callback_data='7жC')
-        kbtn22 = types.InlineKeyboardButton('7з', callback_data='7зC')
-        kbtn60 = types.InlineKeyboardButton('7и', callback_data='7иC')
-        markup_inline.row(kbtn15, kbtn16)
-        markup_inline.row(kbtn17, kbtn18)
-        markup_inline.row(kbtn19, kbtn20)
-        markup_inline.row(kbtn21, kbtn22)
-        markup_inline.row(kbtn60)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '8C':
+        buttons_8 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[30: 40:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_8.append(button)
+        markup_inline.add(*buttons_8)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_8.clear()
 
-    elif call.data == '8P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn25 = types.InlineKeyboardButton('8а', callback_data='8аC')
-        kbtn26 = types.InlineKeyboardButton('8б', callback_data='8бC')
-        kbtn27 = types.InlineKeyboardButton('8в', callback_data='8вC')
-        kbtn28 = types.InlineKeyboardButton('8г', callback_data='8гC')
-        kbtn29 = types.InlineKeyboardButton('8д', callback_data='8дC')
-        kbtn30 = types.InlineKeyboardButton('8е', callback_data='8еC')
-        kbtn23 = types.InlineKeyboardButton('8ж', callback_data='8жC')
-        kbtn49 = types.InlineKeyboardButton('8з', callback_data='8зC')
-        kbtn50 = types.InlineKeyboardButton('8и', callback_data='8иC')
-        kbtn24 = types.InlineKeyboardButton('8к', callback_data='8кC')
-        markup_inline.row(kbtn25, kbtn26)
-        markup_inline.row(kbtn27, kbtn28)
-        markup_inline.row(kbtn29, kbtn30)
-        markup_inline.row(kbtn23, kbtn49)
-        markup_inline.row(kbtn50, kbtn24)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '9C':
+        buttons_9 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[40: 50:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_9.append(button)
+        markup_inline.add(*buttons_9)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_9.clear()
 
-    elif call.data == '9P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn31 = types.InlineKeyboardButton('9а', callback_data='9аC')
-        kbtn32 = types.InlineKeyboardButton('9б', callback_data='9бC')
-        kbtn33 = types.InlineKeyboardButton('9в', callback_data='9вC')
-        kbtn34 = types.InlineKeyboardButton('9г', callback_data='9гC')
-        kbtn35 = types.InlineKeyboardButton('9д', callback_data='9дC')
-        kbtn36 = types.InlineKeyboardButton('9е', callback_data='9еC')
-        kbtn51 = types.InlineKeyboardButton('9ж', callback_data='9жC')
-        kbtn52 = types.InlineKeyboardButton('9з', callback_data='9зC')
-        kbtn53 = types.InlineKeyboardButton('9и', callback_data='9иC')
-        kbtn54 = types.InlineKeyboardButton('9к', callback_data='9кC')
-        markup_inline.row(kbtn31, kbtn32)
-        markup_inline.row(kbtn33, kbtn34)
-        markup_inline.row(kbtn35, kbtn36)
-        markup_inline.row(kbtn51, kbtn52)
-        markup_inline.row(kbtn53, kbtn54)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '10C':
+        buttons_10 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[50: 53:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_10.append(button)
+        markup_inline.add(*buttons_10)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_10.clear()
 
-    elif call.data == '10P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn37 = types.InlineKeyboardButton('10а', callback_data='10аC')
-        kbtn38 = types.InlineKeyboardButton('10б', callback_data='10бC')
-        kbtn39 = types.InlineKeyboardButton('10в', callback_data='10вC')
-        kbtn61 = types.InlineKeyboardButton('10г', callback_data='10гC')
-        markup_inline.row(kbtn37, kbtn38)
-        markup_inline.row(kbtn39, kbtn61)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '11C':
+        buttons_11 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[53: 56:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_11.append(button)
+        markup_inline.add(*buttons_11)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_11.clear()
 
-    elif call.data == '11P':
-        markup_inline = types.InlineKeyboardMarkup()
-        kbtn40 = types.InlineKeyboardButton('11а', callback_data='11аC')
-        kbtn41 = types.InlineKeyboardButton('11б', callback_data='11бC')
-        kbtn55 = types.InlineKeyboardButton('11в', callback_data='11вC')
-        markup_inline.row(kbtn40, kbtn41)
-        markup_inline.row(kbtn55)
-        bot.send_message(call.message.chat.id, f'Выберите букву', reply_markup=markup_inline)
+    if call.data == '1C':
+        buttons_1 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[56: 72:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_1.append(button)
+        markup_inline.add(*buttons_1)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_1.clear()
 
-    if call.data[-1] == 'C':
+    if call.data == '2C':
+        buttons_2 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[72: 88:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_2.append(button)
+        markup_inline.add(*buttons_2)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_2.clear()
+
+    if call.data == '3C':
+        buttons_3 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[88: 101:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_3.append(button)
+        markup_inline.add(*buttons_3)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_3.clear()
+
+    if call.data == '4C':
+        buttons_4 = []
+        inline = types.InlineKeyboardMarkup(row_width=2)
+        for clas in classesAll[101: 114:]:
+            button = types.InlineKeyboardButton(text=clas, callback_data=clas + 'C')
+            buttons_4.append(button)
+        markup_inline.add(*buttons_4)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите букву:',
+                              reply_markup=markup_inline)
+        buttons_4.clear()
+
+    if call.data[-1] == 'C' and call.data[-2] != '5' and call.data[-2] != '6' and call.data[:-2] != '7' and call.data[-2] != '8'and call.data[-2] != '9'and call.data[-2] != '0' and call.data[-2] != '1' and call.data[-2] != '2' and call.data[-2] != '3' and call.data[-2] != '4':
         id = call.from_user.id
         user_clas(call.message, call.data[:-1], id)
 
+cur.close()
+conn.close()
 
 try:
-    bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
+    bot.infinity_polling(timeout=10, long_polling_timeout = 5)
 except:
-    bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
+    bot.infinity_polling(timeout=10, long_polling_timeout=5)
