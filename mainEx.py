@@ -140,7 +140,7 @@ def mg(message):
             print(teacher)
 
         bot.send_message(message.chat.id, f'Количество пользователей: {inf}')
-        bot.send_document(message.chat.id, open(r'main.py', 'rb'))
+        bot.send_document(message.chat.id, open(r'mainEx.py', 'rb'))
         bot.send_document(message.chat.id, open(r'ids.db', 'rb'))
     else:
         bot.send_message(message.chat.id, f'Ты откуда это узнал?')
