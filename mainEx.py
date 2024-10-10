@@ -98,19 +98,22 @@ def checkRasp():
 
 @bot.message_handler(commands=['postToAll23'])
 def post(message):
-    conn = sqlite3.connect('ids.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM users')
-    users = cur.fetchall()
-    cur.close()
-    conn.close()
-    infu = ''
-    for user in users:
-        try:
-            infu = f'{user[0]}'
-            bot.send_message(infu, message.text[message.text.find(' '):])
-        except:
-            continue
+    if user_id == 6042204485 or user_id == 1374973615 or user_id == 5818281440:
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM users')
+        users = cur.fetchall()
+        cur.close()
+        conn.close()
+        infu = ''
+        for user in users:
+            try:
+                infu = f'{user[0]}'
+                bot.send_message(infu, message.text[message.text.find(' '):])
+            except:
+                continue
+    else:
+        bot.send_message(message.chat.id, 'Нинада')
 
 
 @bot.message_handler(commands=['mg'])
