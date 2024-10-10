@@ -373,23 +373,11 @@ def on_click(message):
     elif message.text.lower() == 'разработчик':
         bot.send_message(message.chat.id, 'Сие творение создал Григорий и моральную помощь оказывал его юный подаван Владимир\nГригорий: @FIVE_HH, 89110483340(кому не сложно скиньте денег)\nВладимир: @Discketaa, 89216874164\nЕсли вы увидели это сообщение, то обязаны нам написать или позвонить!')
 
-    elif message.text.lower() == 'нет':
-        bot.send_message(message.chat.id, 'пятиклассника ответ!')
-
     elif message.text.lower() == 'владимир путин':
         bot.send_message(message.chat.id, 'Молодец!\nПолитик, лидер и боец!')
 
     elif message.text.lower() == 'великолепно':
         bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
-
-    elif message.text.lower() == 'а':
-        bot.send_message(message.chat.id, 'Двойку на!')
-
-    elif message.text.lower() == 'да':
-        bot.send_message(message.chat.id, 'Учиться пора!')
-
-    elif message.text.lower() == 'опа':
-        bot.reply_to(message, message.text)
 
 
 @bot.callback_query_handler(func=lambda call: True)
