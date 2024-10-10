@@ -269,10 +269,11 @@ def tHelp(message):
     mes = mes[1:]
     ids = [6042204485, 1374973615]
     requaier = message.from_user.username
+    requaiers_name = str(message.from_user.first_name) + ' ' + str(message.from_user.last_name)
     if mes != '':
         for tex in ids:
             try:
-                bot.send_message(tex, f'Жалоба от @{requaier}:\n{mes}')
+                bot.send_message(tex, f'Жалоба от @{requaier}\nОн же {requaiers_name}:\n{mes}')
             except:
                 pass
         bot.send_message(message.chat.id, 'Ваша жалоба отправлена!')
