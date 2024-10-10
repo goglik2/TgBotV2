@@ -266,11 +266,18 @@ def info(message):
 @bot.message_handler(commands=['thelp'])
 def tHelp(message):
     mes = message.text[message.text.find(' '):]
+    mes = mes[1:]
     ids = [6042204485, 1374973615]
     requaier = message.from_user.username
-    for tex in ids:
-        bot.send_message(tex, f'Жалоба от @{requaier}:\n{mes[1:]}')
-    bot.send_message(message.chat.id, 'Ваша жалоба отправлена!')
+    if mes != '':
+        for tex in ids:
+            try:
+                bot.send_message(tex, f'Жалоба от @{requaier}:\n{mes}')
+            except:
+                pass
+        bot.send_message(message.chat.id, 'Ваша жалоба отправлена!')
+    else:
+        bot.send_message(message.chat.id, 'Жалоба долна включать в себя сообщение!\nПример: /thelp мой класс не отображается')
 
 
 @bot.message_handler(commands=['rasp'])
