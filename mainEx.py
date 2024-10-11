@@ -98,6 +98,7 @@ def checkRasp():
 
 @bot.message_handler(commands=['postToAll23'])
 def post(message):
+    user_id = message.from_user.id
     if user_id == 6042204485 or user_id == 1374973615 or user_id == 5818281440:
         conn = sqlite3.connect('ids.db')
         cur = conn.cursor()
