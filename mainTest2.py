@@ -106,6 +106,8 @@ def checkRasp():
             if raspMes:
                 raspMes = False
                 time.sleep(50400)
+            else:
+                time.sleep(300)
 
 
 threading.Thread(target=checkRasp).start()
@@ -876,7 +878,7 @@ def clasrasp(call):
         if schedule_form == '1':
             cur.execute('''UPDATE users SET schedule_form = ? WHERE id = ?''', (0, user_id))
             bot.send_message(call.message.chat.id, 'Ваш дизайн расписания был изменён на текст')
-        elif schedule_form == '0':
+        else:
             cur.execute('''UPDATE users SET schedule_form = ? WHERE id = ?''', (1, user_id))
             bot.send_message(call.message.chat.id, 'Ваш дизайн расписания был изменён на таблицу')
         conn.commit()
