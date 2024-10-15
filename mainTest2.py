@@ -62,6 +62,13 @@ def i6(m):
     print(m)
 
 
+def checkWeather():
+    while True:
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate.strftime('%d')
+        print(selectDate)
+
+
 def checkRasp():
     while True:
         raspMes = False
