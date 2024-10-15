@@ -7,6 +7,13 @@ import threading
 import sqlite3
 from telebot import apihelper
 import time
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import fitz
+from PIL import Image
 
 
 apihelper.proxy = {'HTTP': 'httph://217.13.102.86:3128'}
@@ -88,12 +95,13 @@ def checkRasp():
                     raspMes = True
                 except:
                     continue
-        if raspMes:
-            raspMes = False
-            time.sleep(50400)
+
+            if raspMes:
+                raspMes = False
+                time.sleep(50400)
 
 
-#threading.Thread(target=checkRasp).start()
+threading.Thread(target=checkRasp).start()
 
 
 @bot.message_handler(commands=['postToAll23'])
@@ -161,6 +169,15 @@ def start(message):
     cur.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, class_name TEXT, class_name_temp TEXT, page TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS classes (class_name TEXT, class_id TEXT)''')
     cur.execute('''CREATE TABLE IF NOT EXISTS teachers (teacher_name TEXT, teacher_id TEXT)''')
+    cur.execute(f"PRAGMA table_info(users)")
+    columns = cur.fetchall()
+    table_exist = False
+    for column in columns:
+        if column[1] == 'schedule_form':
+            table_exist = True
+
+    if not table_exist:
+        cur.execute('''ALTER TABLE users ADD COLUMN schedule_form INTEGER''')
     conn.commit()
     cur.execute('''SELECT class_name FROM classes''')
     firstSlot = cur.fetchone()
@@ -175,7 +192,7 @@ def start(message):
     cur.execute('''SELECT id FROM users''')
     secondSlot = cur.fetchall()
     if (user_id,) not in secondSlot:
-        cur.execute('''INSERT INTO users (id, page) VALUES (?, ?)''', (user_id, 1))
+        cur.execute('''INSERT INTO users (id, page, schedule_form) VALUES (?, ?, ?)''', (user_id, 1, 1))
     conn.commit()
     cur.close()
     conn.close()
@@ -184,23 +201,8 @@ def start(message):
     elif user_id == 1623556809 or user_id == 1544399322:
         bot.send_message(message.chat.id, f'Слався о великая {message.from_user.first_name}')
     else:
-        bot.send_message(message.chat.id, f'Приветсвую, {message.from_user.first_name}')
-    markup_inline = types.InlineKeyboardMarkup()
-    Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-    Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-    Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-    Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-    Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-    Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-    Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
-    Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
-    markup_inline.row(Kbtn1, Kbtn2)
-    markup_inline.row(Kbtn3, Kbtn4)
-    markup_inline.row(Kbtn5)
-    markup_inline.row(Kbtn6)
-    markup_inline.row(Kbtn7)
-    markup_inline.row(Kbtn8)
-    bot.send_message(message.chat.id, 'Укажите ваш класс:', reply_markup=markup_inline)
+        bot.send_message(message.chat.id, f'Приветствую, {message.from_user.first_name}')
+    changeClas(message)
 
 
 def user_clas(message, clas, id):
@@ -209,8 +211,7 @@ def user_clas(message, clas, id):
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
-        cur.execute('INSERT INTO users (id, class_name, page) VALUES (?, ?, ?)', (id, clas, 1))
-        #threading.Thread(target=checkRasp, args=[id]).start()
+        cur.execute('INSERT INTO users (id, class_name, page, schedule_form) VALUES (?, ?, ?, ?)', (id, clas, 1, 1))
     else:
         cur.execute("UPDATE users SET class_name = ? WHERE id = ?", (clas, id))
         cur.execute("UPDATE users SET page = ? WHERE id = ?", (1, id))
@@ -222,11 +223,12 @@ def user_clas(message, clas, id):
     btn2 = types.KeyboardButton('Помощь')
     btn3 = types.KeyboardButton('Перезапустить')
     btn4 = types.KeyboardButton('Поменять класс')
+    btn5 = types.KeyboardButton('Настройки')
     markup.row(btn1)
-    markup.row(btn2, btn4)
+    markup.row(btn2, btn5, btn4)
     markup.row(btn3)
     bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
-    bot.send_message(message.chat.id, text = f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание\nВаш класс: {clas}', reply_markup=markup)
+    bot.send_message(message.chat.id, text = f'Список команд для этого бота:\n/start - перезапустить\n/help - список команд\n/rasp - Расписание\n/changeClas - поменять класс\n/settings - настройки\nВаш класс: {clas}', reply_markup=markup)
 
 
 @bot.message_handler(commands=['help'])
@@ -242,22 +244,7 @@ def info(message):
     cur.close()
     conn.close()
     if clas == '':
-        markup_inline = types.InlineKeyboardMarkup()
-        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
-        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
-        markup_inline.row(Kbtn1, Kbtn2)
-        markup_inline.row(Kbtn3, Kbtn4)
-        markup_inline.row(Kbtn5)
-        markup_inline.row(Kbtn6)
-        markup_inline.row(Kbtn7)
-        markup_inline.row(Kbtn8)
-        bot.edit_message_text(chat_id = message.chat.id, message_id = message.message_id, text = 'Укажите ваш класс:', reply_markup=markup_inline)
+        changeClas(message)
         return
     conn = sqlite3.connect('ids.db')
     cur = conn.cursor()
@@ -269,6 +256,28 @@ def info(message):
     cur.close()
     conn.close()
     bot.send_message(chat_id = message.chat.id, text = f'Ваш класс: {clas}\nСписок команд для этого бота:\n/start - перезапустить\n/help - список команд\n/settings - поменять класс\n/rasp - Расписание\n/thelp - Попросить помощи\nПример: /thelp помогите, мой класс не отображается!')
+
+
+@bot.message_handler(commands=['settings'])
+def settings(message):
+    bot.delete_message(message.chat.id, message.message_id)
+    conn = sqlite3.connect('ids.db')
+    cur = conn.cursor()
+    usid = message.from_user.id
+    cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
+    rows = cur.fetchall()
+    clas = f'{rows}'
+    clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+    cur.close()
+    conn.close()
+    if clas == '':
+        changeClas(message)
+        return
+    m = types.InlineKeyboardMarkup()
+    changeScheduleFormBut = types.InlineKeyboardButton('Поменять дизайн расписания', callback_data='changeScheduleForm')
+    m.row(changeScheduleFormBut)
+    bot.send_message(message.chat.id, 'Возможные опции:', reply_markup=m)
+
 
 
 @bot.message_handler(commands=['thelp'])
@@ -304,22 +313,7 @@ def rasp(message):
     cur.close()
     conn.close()
     if clas == '':
-        markup_inline = types.InlineKeyboardMarkup()
-        Kbtn1 = types.InlineKeyboardButton('5 класс', callback_data='5P')
-        Kbtn2 = types.InlineKeyboardButton('6 класс', callback_data='6P')
-        Kbtn3 = types.InlineKeyboardButton('7 класс', callback_data='7P')
-        Kbtn4 = types.InlineKeyboardButton('8 класс', callback_data='8P')
-        Kbtn5 = types.InlineKeyboardButton('9 класс', callback_data='9P')
-        Kbtn6 = types.InlineKeyboardButton('10 класс', callback_data='10P')
-        Kbtn7 = types.InlineKeyboardButton('11 класс', callback_data='11P')
-        Kbtn8 = types.InlineKeyboardButton('Учитель', callback_data='TeachH')
-        markup_inline.row(Kbtn1, Kbtn2)
-        markup_inline.row(Kbtn3, Kbtn4)
-        markup_inline.row(Kbtn5)
-        markup_inline.row(Kbtn6)
-        markup_inline.row(Kbtn7)
-        markup_inline.row(Kbtn8)
-        bot.edit_message_text(chat_id = message.chat.id, message_id = message.message_id, text = 'Укажите ваш класс:', reply_markup=markup_inline)
+        changeClas(message)
         return
     markup_inline = types.InlineKeyboardMarkup()
     if clas[0] != '1' and clas[0] != '0' and clas[0] != '5' and clas[0] != '6' and clas[0] != '7' and clas[0] != '8' and clas[0] != '9':
@@ -333,9 +327,8 @@ def rasp(message):
     bot.send_message(message.chat.id, text = 'Что вы хотите посмотреть?', reply_markup=markup_inline)
 
 
-@bot.message_handler(commands=['settings'])
-def settings(message):
-    bot.delete_message(message.chat.id, message.message_id)
+@bot.message_handler(commands=['changeClas'])
+def changeClas(message):
     conn = sqlite3.connect('ids.db')
     cur = conn.cursor()
     usid = message.from_user.id
@@ -374,8 +367,12 @@ def on_click(message):
     elif message.text == 'Перезапустить':
         start(message)
 
-    elif message.text == 'Поменять класс':
+    elif message.text == 'Настройки':
         settings(message)
+
+    elif message.text == 'Поменять класс':
+        bot.delete_message(message.chat.id, message.message_id)
+        changeClas(message)
 
     elif message.text.lower() == 'разработчик':
         bot.send_message(message.chat.id, 'Сие творение создал Григорий и моральную помощь оказывал его юный подаван Владимир\nГригорий: @FIVE_HH, 89110483340(кому не сложно скиньте денег)\nВладимир: @Discketaa, 89216874164\nЕсли вы увидели это сообщение, то обязаны нам написать или позвонить!')
@@ -385,6 +382,66 @@ def on_click(message):
 
     elif message.text.lower() == 'великолепно':
         bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
+
+
+def createImage(message, id):
+    pdfmetrics.registerFont(TTFont('CustomFont', 'img/font.ttf'))
+    data = [
+        ["Время", "Урок", "Учитель", "Класс"],
+    ]
+
+    for line in message:
+        data.append(line.split(' | '))
+
+    pdf = SimpleDocTemplate(f"img/table{id}.pdf", pagesize=letter)
+    elements = []
+    table = Table(data)
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'CustomFont'),
+        ('FONTNAME', (0, 1), (-1, -1), 'CustomFont'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    elements.append(table)
+    pdf.build(elements)
+
+    pdf_document = fitz.open(f"img/table{id}.pdf")
+    for page_num in range(len(pdf_document)):
+        page = pdf_document.load_page(page_num)
+        pix = page.get_pixmap()
+        pix.save(f"img/table{id}.jpg")
+
+        img = Image.open(f"img/table{id}.jpg")
+        img = img.convert("RGBA")
+        data = img.getdata()
+        min_x = img.width
+        min_y = img.height
+        max_x = 0
+        max_y = 0
+
+        for y in range(img.height):
+            for x in range(img.width):
+                r, g, b, a = data[y * img.width + x]
+                if (r, g, b) != (255, 255, 255):
+                    if x < min_x:
+                        min_x = x
+                    if x > max_x:
+                        max_x = x
+                    if y < min_y:
+                        min_y = y
+                    if y > max_y:
+                        max_y = y
+
+        cropped_img = img.crop((min_x, min_y, max_x + 1, max_y + 1))
+        cropped_img = cropped_img.convert("RGB")
+        cropped_img.save(f"img/table{id}.jpg")
+
+    pdf_document.close()
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -627,6 +684,8 @@ def clasrasp(call):
             selectGroup = cur.fetchall()
             selectGroup = str(selectGroup)
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
             cur.close()
             conn.close()
@@ -640,11 +699,21 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-            message = ''
-            for item in data[0]:
-                for lesson in item:
-                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+            if schedule_form == '1':
+                message = []
+                for item in data[0]:
+                    for lesson in item:
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id)
+                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
+                    bot.delete_message(call.message.chat.id, call.message.message_id)
+                    bot.send_photo(call.message.chat.id, photo)
+            else:
+                message = ''
+                for item in data[0]:
+                    for lesson in item:
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -661,6 +730,8 @@ def clasrasp(call):
             selectGroup = cur.fetchall()[0]
             selectGroup= str(selectGroup)
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
             cur.close()
             conn.close()
@@ -675,11 +746,21 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-            message = ''
-            for item in data[0]:
-                for lesson in item:
-                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+            if schedule_form == '1':
+                message = []
+                for item in data[0]:
+                    for lesson in item:
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id)
+                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
+                    bot.delete_message(call.message.chat.id, call.message.message_id)
+                    bot.send_photo(call.message.chat.id, photo)
+            else:
+                message = ''
+                for item in data[0]:
+                    for lesson in item:
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -695,6 +776,8 @@ def clasrasp(call):
             selectTeacher = cur.fetchall()
             selectTeacher = str(selectTeacher)
             selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
             cur.close()
             conn.close()
@@ -708,11 +791,21 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-            message = ''
-            for item in data[0]:
-                for lesson in item:
-                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+            if schedule_form == '1':
+                message = []
+                for item in data[0]:
+                    for lesson in item:
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id)
+                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
+                    bot.delete_message(call.message.chat.id, call.message.message_id)
+                    bot.send_photo(call.message.chat.id, photo)
+            else:
+                message = ''
+                for item in data[0]:
+                    for lesson in item:
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -733,6 +826,8 @@ def clasrasp(call):
             selectTeacher = str(selectTeacher)
             selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(
                 ",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             conn.commit()
             cur.close()
             conn.close()
@@ -746,15 +841,40 @@ def clasrasp(call):
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
-            message = ''
-            for item in data[0]:
-                for lesson in item:
-                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson[
-                        "place"] + '\n' + '-' + '\n'
-            bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+            if schedule_form == '1':
+                message = []
+                for item in data[0]:
+                    for lesson in item:
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id)
+                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
+                    bot.delete_message(call.message.chat.id, call.message.message_id)
+                    bot.send_photo(call.message.chat.id, photo)
+            else:
+                message = ''
+                for item in data[0]:
+                    for lesson in item:
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
+
+    if call.data == 'changeScheduleForm':
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+        schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        if schedule_form == '1':
+            cur.execute('''UPDATE users SET schedule_form = ? WHERE id = ?''', (0, user_id))
+            bot.send_message(call.message.chat.id, 'Ваш дизайн расписания был изменён на текст')
+        elif schedule_form == '0':
+            cur.execute('''UPDATE users SET schedule_form = ? WHERE id = ?''', (1, user_id))
+            bot.send_message(call.message.chat.id, 'Ваш дизайн расписания был изменён на таблицу')
+        conn.commit()
+        cur.close()
+        conn.close()
 
     if call.data == '5P':
         buttons_five = []
@@ -842,4 +962,3 @@ try:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
 except:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
-    
