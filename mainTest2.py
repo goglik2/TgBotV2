@@ -76,9 +76,6 @@ def checkRasp():
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
-        cur.close()
-        conn.close()
-        infu = ''
         selectDate = datetime.datetime.now()
         selectDate = selectDate + datetime.timedelta(days=1)
         selectDate = selectDate.strftime('%Y-%m-%d')
@@ -98,16 +95,62 @@ def checkRasp():
             for user in users:
                 infu = f'{user[0]}'
                 try:
-                    bot.send_message(infu, 'Расписание обновилось!')
+                    cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)",(infu,))
+                    selectGroup = cur.fetchall()
+                    selectGroup = str(selectGroup)
+                    selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+                    cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+                    schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+                    cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
+                    teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+                    if teacher_exist == 'None':
+                        cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', (1, user_id))
+                        teacher_exist = '1'
+
+                    if schedule_form == 'None':
+                        cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, user_id))
+                        schedule_form = '1'
+                    params = {
+                        'selectGroup': selectGroup,
+                        'selectTeacher': '222',
+                        'selectPlace': '174',
+                        'selectDate[]': selectDate,
+                        'type': 'group'
+                    }
+                    response = requests.get(url, params=params)
+                    data_str = response.json()
+                    data = json.loads(data_str)
+                    if schedule_form == '1':
+                        message = []
+                        for item in data[0]:
+                            for lesson in item:
+                                if teacher_exist == '1':
+                                    message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                                elif teacher_exist == '0':
+                                    message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
+                        createImage(message, infu, teacher_exist)
+                        with open(f'img/table{infu}.jpg', 'rb') as photo:
+                            bot.send_photo(infu, photo, selectDate)
+                    else:
+                        message = ''
+                        for item in data[0]:
+                            for lesson in item:
+                                if teacher_exist == '1':
+                                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                                elif teacher_exist == '0':
+                                    message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                        bot.send_message(infu, f'Расписание на {selectDate}\n{message}')
+
                     raspMes = True
                 except:
                     continue
-
             if raspMes:
                 raspMes = False
                 time.sleep(50400)
             else:
-                time.sleep(300)
+                time.sleep(180)
+        cur.close()
+        conn.close()
 
 
 threading.Thread(target=checkRasp).start()
@@ -156,7 +199,6 @@ def mg(message):
 
         classesinf = ''
         for classesi in classes:
-            #classesinf += f'{classesi}\n'
             print(classesi)
 
         for teacher in teachers:
@@ -181,12 +223,12 @@ def start(message):
     cur.execute(f"PRAGMA table_info(users)")
     columns = cur.fetchall()
     table_exist = False
-    for column in columns:
-        if column[1] == 'schedule_form':
-            table_exist = True
+    if not any(name[1] == 'teacher_exist' for name in columns):
+        cur.execute('''ALTER TABLE users ADD COLUMN teacher_exist INTEGER''')
 
-    if not table_exist:
+    if not any(column[1] == 'schedule_form' for column in columns):
         cur.execute('''ALTER TABLE users ADD COLUMN schedule_form INTEGER''')
+
     conn.commit()
     cur.execute('''SELECT class_name FROM classes''')
     firstSlot = cur.fetchone()
@@ -201,7 +243,7 @@ def start(message):
     cur.execute('''SELECT id FROM users''')
     secondSlot = cur.fetchall()
     if (user_id,) not in secondSlot:
-        cur.execute('''INSERT INTO users (id, page, schedule_form) VALUES (?, ?, ?)''', (user_id, 1, 1))
+        cur.execute('''INSERT INTO users (id, page, schedule_form, teacher_exist) VALUES (?, ?, ?, ?)''', (user_id, 1, 1, 1))
     conn.commit()
     cur.close()
     conn.close()
@@ -220,7 +262,7 @@ def user_clas(message, clas, id):
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
-        cur.execute('INSERT INTO users (id, class_name, page, schedule_form) VALUES (?, ?, ?, ?)', (id, clas, 1, 1))
+        cur.execute('INSERT INTO users (id, class_name, page, schedule_form, teacher_exist) VALUES (?, ?, ?, ?, ?)', (id, clas, 1, 1, 1))
     else:
         cur.execute("UPDATE users SET class_name = ? WHERE id = ?", (clas, id))
         cur.execute("UPDATE users SET page = ? WHERE id = ?", (1, id))
@@ -284,7 +326,9 @@ def settings(message):
         return
     m = types.InlineKeyboardMarkup()
     changeScheduleFormBut = types.InlineKeyboardButton('Поменять дизайн расписания', callback_data='changeScheduleForm')
+    changeTeacherExistBut = types.InlineKeyboardButton('Убрать/Добавить учителя в расписании', callback_data='changeTeacherExist')
     m.row(changeScheduleFormBut)
+    m.row(changeTeacherExistBut)
     bot.send_message(message.chat.id, 'Возможные опции:', reply_markup=m)
 
 
@@ -393,11 +437,16 @@ def on_click(message):
         bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
 
 
-def createImage(message, id):
+def createImage(message, id, teacher_exist):
     pdfmetrics.registerFont(TTFont('CustomFont', 'img/font.ttf'))
-    data = [
-        ["Время", "Урок", "Учитель", "Класс"],
-    ]
+    if teacher_exist == '1':
+        data = [
+            ["Время", "Урок", "Учитель", "Класс"],
+        ]
+    elif teacher_exist == '0':
+        data = [
+            ["Время", "Урок", "Класс"],
+        ]
 
     for line in message:
         data.append(line.split(' | '))
@@ -695,6 +744,16 @@ def clasrasp(call):
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
             schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
+            teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            if teacher_exist == 'None':
+                cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', (1, user_id))
+                teacher_exist = '1'
+
+            if schedule_form == 'None':
+                cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, user_id))
+                schedule_form = '1'
+
             conn.commit()
             cur.close()
             conn.close()
@@ -712,17 +771,23 @@ def clasrasp(call):
                 message = []
                 for item in data[0]:
                     for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id)
+                        if teacher_exist == '1':
+                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                        elif teacher_exist == '0':
+                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id, teacher_exist)
                 with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
                     bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo)
+                    bot.send_photo(call.message.chat.id, photo, selectDate)
             else:
                 message = ''
                 for item in data[0]:
                     for lesson in item:
-                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+                        if teacher_exist == '1':
+                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                        elif teacher_exist == '0':
+                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -741,6 +806,16 @@ def clasrasp(call):
             selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
             schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
+            teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            if teacher_exist == 'None':
+                cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', (1, user_id))
+                teacher_exist = '1'
+
+            if schedule_form == 'None':
+                cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, user_id))
+                schedule_form = '1'
+
             conn.commit()
             cur.close()
             conn.close()
@@ -751,7 +826,6 @@ def clasrasp(call):
                 'selectDate[]': selectDate,
                 'type': 'group'
             }
-
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
@@ -759,17 +833,23 @@ def clasrasp(call):
                 message = []
                 for item in data[0]:
                     for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id)
+                        if teacher_exist == '1':
+                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                        elif teacher_exist == '0':
+                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id, teacher_exist)
                 with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
                     bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo)
+                    bot.send_photo(call.message.chat.id, photo, selectDate)
             else:
                 message = ''
                 for item in data[0]:
                     for lesson in item:
-                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+                        if teacher_exist == '1':
+                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                        elif teacher_exist == '0':
+                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -804,8 +884,8 @@ def clasrasp(call):
                 message = []
                 for item in data[0]:
                     for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id)
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id, '1')
                 with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
                     bot.delete_message(call.message.chat.id, call.message.message_id)
                     bot.send_photo(call.message.chat.id, photo)
@@ -814,7 +894,7 @@ def clasrasp(call):
                 for item in data[0]:
                     for lesson in item:
                         message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -854,8 +934,8 @@ def clasrasp(call):
                 message = []
                 for item in data[0]:
                     for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id)
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"])
+                createImage(message, call.message.chat.id, '1')
                 with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
                     bot.delete_message(call.message.chat.id, call.message.message_id)
                     bot.send_photo(call.message.chat.id, photo)
@@ -864,7 +944,7 @@ def clasrasp(call):
                 for item in data[0]:
                     for lesson in item:
                         message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = message)
+                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
         except IndexError:
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
 
@@ -881,6 +961,22 @@ def clasrasp(call):
         else:
             cur.execute('''UPDATE users SET schedule_form = ? WHERE id = ?''', (1, user_id))
             bot.send_message(call.message.chat.id, 'Ваш дизайн расписания был изменён на таблицу')
+        conn.commit()
+        cur.close()
+        conn.close()
+
+    if call.data == 'changeTeacherExist':
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        user_id = call.from_user.id
+        cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
+        schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        if schedule_form == '1':
+            cur.execute('''UPDATE users SET teacher_exist = ? WHERE id = ?''', (0, user_id))
+            bot.send_message(call.message.chat.id, 'Теперь в расписании не будет указываться учитель!')
+        else:
+            cur.execute('''UPDATE users SET teacher_exist = ? WHERE id = ?''', (1, user_id))
+            bot.send_message(call.message.chat.id, 'Теперь в расписании будет указываться учитель!')
         conn.commit()
         cur.close()
         conn.close()
