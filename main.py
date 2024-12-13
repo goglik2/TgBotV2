@@ -14,6 +14,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 import fitz
 from PIL import Image
+import shutil
 
 
 apihelper.proxy = {'HTTP': 'httph://217.13.102.86:3128'}
@@ -55,44 +56,19 @@ teachersAllIds = ['222', '223', '224', '225', '226', '227', '228', '229', '230',
 global url
 url = 'https://rasp.milytin.ru/search'
 
-bot = telebot.TeleBot('7139699520:AAGlRsujRco6exq0mBAgK0cGojTGkpzelI0')
-
-
-def weatherPost():
-    while True:
-        conn = sqlite3.connect('ids.db')
-        cur = conn.cursor()
-        cur.execute('SELECT * FROM users')
-        users = cur.fetchall()
-        if datetime.datetime.now().strftime('%H-%M-%S') == '20-30-00' or 1 == 1:
-            API_KEY = 'd9939ac907510bade3af110d9b0b91f1'
-            CITY = 'Череповец'
-            url = f'http://api.openweathermap.org/data/2.5/forecast?q={CITY}&appid={API_KEY}&units=metric&lang=ru'
-            response = requests.get(url)
-            data = response.json()
-            tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
-            tomorrow_date = tomorrow.strftime('%Y-%m-%d')
-            for forecast in data['list']:
-                forecast_date = forecast['dt_txt'].split()[0]
-                if forecast_date == tomorrow_date:
-                    temperature = forecast['main']['temp']
-                    description = forecast['weather'][0]['description']
-                    cur.execute("""SELECT id FROM users WHERE weather = ?""", (1, ))
-                    us = cur.fetchall()
-                    for user in us:
-                        bot.send_message(user[0], f"Прогноз погоды на завтра:\nТемпература: {temperature}°C\nОписание: {description}")
-                    time.sleep(86350)
-                    conn.close()
-                    cur.close()
-                    break
+bot = telebot.TeleBot('')
 
 
 def mainRaspUpdate():
     while True:
+        print(f"{time.ctime(time.time())}:Запускаю проверку!!")
         if checkRaspUpdate():
+            print(f"{time.ctime(time.time())}:Рассылка начата!")
             sendRaspUpdate()
+            print(f"{time.ctime(time.time())}:Рассылка закончена!")
             time.sleep(14 * 60 * 60)
         else:
+            print(f"{time.ctime(time.time())}:Таймер на 10 минут запущен!")
             time.sleep(10 * 60)
 
 
@@ -105,34 +81,46 @@ def checkRaspUpdate():
         'type': 'group'
     }
     response = requests.get(url, params=params)
+    response = response.json()
+    response = json.loads(response)
+    print(time.ctime(time.time()), response)
     if response != []:
         return True
 
+    return False
+
 
 def sendRaspUpdate():
-    conn = sqlite3.connect('ids.db')
+    shutil.copy("ids.db", "ids2.db")
+    conn = sqlite3.connect('ids2.db')
     cur = conn.cursor()
     cur.execute('SELECT * FROM users')
     users = cur.fetchall()
     selectDate = datetime.datetime.now() + datetime.timedelta(days=1)
     selectDate = f"{selectDate.strftime('%Y-%m-%d')}"
     for user in users:
-        infu = f'{user[0]}'
+        infu = user[0]
+        cur.execute(f"SELECT autoSchedule FROM users WHERE id = {infu}")
+        autoSchedule = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        if autoSchedule == None:
+            cur.execute('UPDATE users SET autoSchedule = ? WHERE id = ?', (1, infu))
+        elif autoSchedule == '0':
+            continue
+
         try:
-            cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)",(infu,))
-            selectGroup = cur.fetchall()
-            selectGroup = str(selectGroup)
-            selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            cur.execute(f"SELECT class_name_temp FROM users WHERE id = {infu}")
+            cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name FROM users WHERE id = ?)", (infu,))
+            selectGroup = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             cur.execute(f'''SELECT schedule_form FROM users WHERE id = {infu}''')
             schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {infu}''')
             teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             if teacher_exist == 'None':
-                cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', (1, infu))
+                cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', ('1', infu))
                 teacher_exist = '1'
 
             if schedule_form == 'None':
-                cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, infu))
+                cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', ('1', infu))
                 schedule_form = '1'
             params = {
                 'selectGroup': selectGroup,
@@ -168,6 +156,7 @@ def sendRaspUpdate():
                             message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
                 bot.send_message(infu, f'Расписание на {selectDate}\n{message}')
         except Exception as e:
+            print(f"{infu}, {str(e)}")
             continue
 
     cur.close()
@@ -252,8 +241,8 @@ def start(message):
     if not any(column[1] == 'schedule_form' for column in columns):
         cur.execute('''ALTER TABLE users ADD COLUMN schedule_form INTEGER''')
 
-    if not any(column[1] == 'weather' for column in columns):
-        cur.execute('''ALTER TABLE users ADD COLUMN weather INTEGER''')
+    if not any(column[1] == 'autoSchedule' for column in columns):
+        cur.execute('''ALTER TABLE users ADD COLUMN autoSchedule INTEGER''')
 
     conn.commit()
     cur.execute('''SELECT class_name FROM classes''')
@@ -269,7 +258,7 @@ def start(message):
     cur.execute('''SELECT id FROM users''')
     secondSlot = cur.fetchall()
     if (user_id,) not in secondSlot:
-        cur.execute('''INSERT INTO users (id, page, schedule_form, teacher_exist, weather) VALUES (?, ?, ?, ?, ?)''', (user_id, 1, 1, 1, 1))
+        cur.execute('''INSERT INTO users (id, page, schedule_form, teacher_exist, autoSchedule) VALUES (?, ?, ?, ?, ?)''', (user_id, 1, 1, 1, 1))
     conn.commit()
     cur.close()
     conn.close()
@@ -288,7 +277,7 @@ def user_clas(message, clas, id):
     cur.execute('SELECT id FROM users')
     userId = cur.fetchall()
     if id not in [x[0] for x in userId]:
-        cur.execute('INSERT INTO users (id, class_name, page, schedule_form, teacher_exist, weather) VALUES (?, ?, ?, ?, ?, ?)', (id, clas, 1, 1, 1, 1))
+        cur.execute('INSERT INTO users (id, class_name, page, schedule_form, teacher_exist, autoSchedule) VALUES (?, ?, ?, ?, ?, ?)', (id, clas, 1, 1, 1, 1))
     else:
         cur.execute("UPDATE users SET class_name = ? WHERE id = ?", (clas, id))
         cur.execute("UPDATE users SET page = ? WHERE id = ?", (1, id))
@@ -353,10 +342,10 @@ def settings(message):
     m = types.InlineKeyboardMarkup()
     changeScheduleFormBut = types.InlineKeyboardButton('Поменять дизайн расписания', callback_data='changeScheduleForm')
     changeTeacherExistBut = types.InlineKeyboardButton('Убрать/Добавить учителя в расписании', callback_data='changeTeacherExist')
-    changeWeatherBut = types.InlineKeyboardButton('Напоминания о погоде', callback_data='changeWeather')
+    changeAutoScheduleBut = types.InlineKeyboardButton('Авто-расписание', callback_data='changeAutoSchedule')
     m.row(changeScheduleFormBut)
     m.row(changeTeacherExistBut)
-    #m.row(changeWeatherBut)
+    m.row(changeAutoScheduleBut)
     bot.send_message(message.chat.id, 'Возможные опции:', reply_markup=m)
 
 
@@ -1009,18 +998,18 @@ def clasrasp(call):
         cur.close()
         conn.close()
 
-    if call.data == 'changeWeather':
+    if call.data == 'changeAutoSchedule':
         conn = sqlite3.connect('ids.db')
         cur = conn.cursor()
         user_id = call.from_user.id
-        cur.execute(f'''SELECT weather FROM users WHERE id = {user_id}''')
-        weather = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-        if weather == '1':
-            cur.execute('''UPDATE users SET weather = ? WHERE id = ?''', (0, user_id))
-            bot.send_message(call.message.chat.id, 'Теперь вам не будет отправляться погода!')
+        cur.execute(f'''SELECT autoSchedule FROM users WHERE id = {user_id}''')
+        autoSchedule = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        if autoSchedule == '1':
+            cur.execute('''UPDATE users SET autoSchedule = ? WHERE id = ?''', (0, user_id))
+            bot.send_message(call.message.chat.id, 'Рассылка расписания отключена!')
         else:
-            cur.execute('''UPDATE users SET weather = ? WHERE id = ?''', (1, user_id))
-            bot.send_message(call.message.chat.id, 'Теперь вам будет отправляться погода!')
+            cur.execute('''UPDATE users SET autoSchedule = ? WHERE id = ?''', (1, user_id))
+            bot.send_message(call.message.chat.id, 'Рассылка расписания включена!')
         conn.commit()
         cur.close()
         conn.close()
@@ -1111,3 +1100,4 @@ try:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
 except:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
+
