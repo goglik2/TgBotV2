@@ -47,16 +47,76 @@ classesAllIds = [
 ]
 
 global teachersAll
-teachersAll = ['Тучанская В.В.', 'Андриевская Н.И.', 'Логинова О.П.', 'Борзенина М.А.', 'Цыб Т.В.', 'Морозова Ю.А.', 'Петренко Н.С.', 'Коротких А.И.', 'Пилостаева А.О.', 'Некрасова Н.В.', 'Семушина И.Л.', 'Тараторина О.В.', 'Шилова В.А.', 'Стрелкова М.А.', 'Кубык К.Р.', 'Попова М.С.', 'Синева Т.А.', 'Санникова Е.А.', 'Кашина А.Ю.', 'Корнилова В.В.', 'Абрамова Н.С.', 'ВздороваТ.С./Коробов А.В.', 'Илларионова В.П.', 'Антонова В.П./Тихомирова Н.С.', 'Коргинова А.В.', 'Павлова Я.М.', 'Горбунова М.А.', 'Ларчина Т.В.', 'Соколова Е.Е.', 'Семочкина А.А.', 'Ципилева Т.А.', 'Шевченко А.А.', 'Фёдорова К.Р.', 'Бесова Л.А.', 'Бокарева А.А.', 'Горбатович А.А.', 'Аверина К.Е./Скребцова И.А.', 'Рябкова С.Н.', 'Джанасова Н.Н.', 'Кистанова Н.Л.', 'Крылова Т.В.', 'Пелевина Н.В.', 'Гаджиева М.Г.', 'Яичкова М.М.', 'Каронова С.Г.', 'Филиппова Т.В.', 'Савинова К.В.', 'Комарова Л.А.', 'Бурмистрова О.Ю.', 'Крутикова Я.В.', 'Мокина И.Р.', 'Царева М.А.', 'Савина И.В.', 'Кузнецова М.А.', 'Самсонова Т.М.', 'Костина М.В.', 'Хонина Е.А.', 'Панина Е.В.', 'Петровичева А.А.', 'Божко А.А.', 'Балакшин Р.Н.', 'Мащенка П.А.', 'Богданова Е.В.', 'Ананьина И.К.', 'Григорьева Д.А.', 'Алексеева Т.В.', 'Груздева И.Н.', 'Проскурина Е.Н.', 'Постникова О.В.', 'Гаврилова Н.Н.', 'Галова А.В', 'Смирнова Е.А.', 'Ильиных И.В.', 'Новичихина Т.С.', 'Патютько Е.А.', 'Гордеев М.А.', 'Коршунова Р.С.', 'Харчева Е.Н.', 'Соболева И.С.', 'Соболева Е.А.', 'Чистякова Ю.О.', 'Лебедева Т.В.', 'Флегантова Н.С.', 'Лясникова Н.Д.', 'Корзина Ю.В.', 'Караваева В.А.', 'Ананьина О.Н.', 'Горинова Д.В.', 'Васильев И.Н.', 'Щерба Е.Ю.', 'Першичева Е.В.', 'Петрова В.О.', 'Агеева Л.Г.', 'Матвева Е.А.', 'Туницкая О.Ю.', 'Гаврилова О.В.', 'Репкина А.В.', 'Елисеева О.Г.', 'Савинова О.В.', 'Заборихина Ю.Л.', 'Ярулина В.Р.', 'Васильева С.Н.', 'Мащенко П.А.', 'Кириллов А.А./Божко А.А.', 'Соболева А.Н.', 'Куражова Н.Ю.', 'Иванова С.Г./Божко А.А.', 'Галова А.В.', 'Синицына А.Н.', 'Федорова Л.В.', 'Манаев И.А.', 'Матвеева Е.А.', 'Громова Т.В.', 'Юсуфович С.А.', 'Смирнова В.А.', 'Лисоцкова О.Н.', 'Борзунова Ю.А.', 'Ситников П.Л.', 'Трифанова М.С.', 'Горушкина А.В.', 'Неизвестно', 'Калиняк Л.В.', 'Добровольский Е.С.', 'Иванова С.Г.', 'Коробов А.В.', 'Байрамова Л.С.', 'Смирнова В.А.:3', 'Николаева Т.В./Истоцкая Н.Н.', 'Божко А.А./Кириллов А.А.', 'Божко А.А./Иванова С.Г.', 'Ефипова М.П.', 'Кронштатова Е.А.', 'Неизвестно ', 'Булычева Н.Н./Полубабкина Л.Г.', 'Костина М.В. ', 'Хонина Е.А. ', 'Чистякова Ю.О. ', 'Постникова О.В. ', 'Юсуфович С.А. ', 'Смирнова В.А. ', 'Смирнова Е.А. ', 'Байрамова Л.С. ', 'Заборихина Ю.Л. ', 'Першичева Е.В. ', 'Федорова Л.В. ', 'Галова А.В. ,', 'Лебедева Т.В. ', 'Репкина А.В. ', 'Новичихина Т.С. ', 'Калиняк Л.В. ', 'Синицина А.Н.', 'Постникова О.В.,', 'Галова А.В.,', 'Зона релаксации', 'Табунов И.А.', 'Глухова О.А.', 'Неизвестоно', 'Горинава Д.В.', 'Неизветно', 'Кириллов А.А.', 'Качкина А.Н.', 'Фёдоров М.Д.', 'Неклюдова Е.А.', 'Кукушкина А.А.', 'Коробов А.В.:', 'Фёдорова М.Д.', 'Белякова О.С.', 'Семушина И.А.', 'Смирнов А.А.', 'Английский язык', 'Геометрия', 'Большой', 'Разлетова В.В.', 'Булычева Н.Н.Полубабкина Л.Г.', 'Божко А.А.Иванова С.Г.', 'в/у "Разговоры о важном"', 'Электив Практическая география', 'Биология', 'Разлетова В.В.         ', 'Корзина Ю.В.   ', 'Чистякова Ю.О', 'Заборихина Ю.Л', 'Костина М.В', 'Хонина Е.А', 'Коршунова Р.С', 'Постникова О.В', 'Смирнова Е.А', 'Юсуфович С.А', 'Смирнова В.А', 'Байрамова Л.С', 'Ефипова М.П', 'Першичева Е.В', 'Федорова Л.В', 'Манаев И.А', 'Лебедева Т.В', 'Агеева Л.Г', 'Борзунова Ю.А', 'Репкина А.В', 'Фотосъёмка для летописи школы', 'Алгебра', 'Литература', 'География', 'Электив Биология в задачах', '/в/д "Математический практикум"', 'АКР по руссому языку', 'Информатика', 'Неизвестно.', 'Профтестирование', 'Манаев', '15.00-16.00', '12.00-13.00', '13.00-14.00', '14.00-15.00', 'Разлетова В.В.   ', 'Стеценко Н.Д.', 'Разлетова В.В', 'Калиняк Л.Г.', '        Разлетова В.В. ', 'Кривоборская Виктория Александровна.', 'Корзникова Юлия Сергеевна ', '/Федорова Л.В.', 'Ученые - в школы                         ', 'Разлетова В.В  ', 'Завьялова А.Н.', '/Коршунова Р.С.', 'ВПР география', 'м', '/Английский язык', 'Малый актовый зал', 'Немецкий язык', '/Немецкий язык', 'Иванова С.Г.     ', 'Божко А.А. ', 'Иванова С.Г.     /классный час', 'Иванова С.Г.     /зона релаксации', 'АКР по русскому языку', '/Галова А.В.', '   Классный час         А204(Р.яз)', 'Русский язык', 'Химия', 'АКР по математике        ', 'АКР по математике    ', 'АКР по математике             ', 'Ефипова М.П. А306(ин.яз)', '/Информатика', 'Родная литература', 'в/д "Математика в вопросах и ответах"', 'Постникова О.В..', 'Смирнова В.А..', 'Постникова О.В./Постникова О.В.', 'Феофанова Е.А.', 'Нетзвсетно', 'Консультация по химии Гаврилова О.В. Г2', 'Консультация по информатике Манаев И.А./Смирнова Е.А. Г104.1/Г104', 'Консультация по русскому языку Щерба Е.Ю. дистанционно', 'Щерба Е.Ю. Дистанционно', 'Консультация по математике Елисеева О.Г. Большой читальный зал', 'Консультация по русскому языку Ананьина О.Н. Г204', 'Консультация по математике 1п/гр Петрова В.О. Б142(ОБЖ)', 'Консультация по обществознанию Лясникова Н.Д. Г2', 'Горелова А.В.', 'Мелкова Е.Ю.', 'Твердохлеб К.', 'Кушева Т.А.', 'Елмалджиди Е.Г.', 'Крыскина К.А.', 'Истоцкая Н.Н.', 'Истоцкая Н.Н./Николаева Т.В.', 'Николаева Т.В.', 'Нестерова В.И.', 'Кочуева А.С.', 'Мартынов П.С.', 'Щукина О.И.', 'Калёва В.В.', 'Череповецкий Н.З.', 'Коковкина Е.С.', 'Востокова А.С.', 'Ситникова Я.В.', 'Шведова А.А.', 'Вакансия ин.яз', 'Андреева А.С.', 'Кумбула М.С.', 'Вакансия 1 кл', 'Агапова М.М.', 'Булычева А.А.', 'Куракина О.Г.', 'Коптяева О.А.', 'Короглуева А.И.', 'Кузнецова Е.И.', 'Петяева А.В.', 'Угрюмова В.И.', 'Мартынив А.И.', 'Тихомирова Н.С./Антонова В.П.', 'Черняева С.Е.', 'Кривоборская В.А.', 'Скребцова И.А. /Саругланова Ш.З.', 'Фомина Ю.И./Вакансия', 'Корзникова Ю.С.', 'Вздорова Т.С./Фомина Ю.И.', 'Лебедева Ю.А.', 'Елмаджиди Е.Г.', 'Курникова П.В.', 'Федорова К.Р.', 'Овчинникова Т.В.', 'Зона', 'Першичева Е.', 'Фомина Ю.И.', 'Большой актовый зал', 'Фомина Ю.И..', 'Николаева Т.В./Николаева Т.В.', 'Иванова С.Г../Иванова С.Г.', 'Иванова С.Г./Иванова С.Г.', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Коркина Н.А.', ' ', '', ' ', ' ', ' ', ' ', ' ', '.', ' ', ' ', 'Большой читальный зал-Г104.3', ' ', ' ', 'Истоцкая Н.Н./Истоцкая Н.Н.', 'Калева В.В.', 'Хребтова А.Р.', 'Белякова О.С. ', ' Белякова О.С. А205(р.яз)', 'Твердохлеб К.:', 'Першичева Е.В.:', 'Чистякова Ю.О.:', 'Щукина О.И.:', 'Хонина Е.А.:', 'Заборихина Ю.Л.:', 'Постникова О.В.:', 'Ефипова М.П.:', 'Галова А.В.:', 'Смирнова Е.А.:', 'Лебедева Т.В.:', 'Федорова Л.В.:', 'Байрамова Л.С.:', 'Г104.3-читальный зал', 'Мащенко М.П.', 'Юный Инженер', 'Божко А.А. (девочки)', 'Караваева В.А., Лисоцкова О.Н.', 'Иванова С.Г.(мальчики)', 'ГориноваД.В.', '/Электив Химия: от простого к сложному', 'Юноши 2007 г.р.', 'Юноши 2007 г.р. ', '/Профтестирование(военкомат) Юноши 2007 г.р.', 'военкомат', 'История', '/', 'Профтестирование(военкомат) Юноши 2007 г.р.', 'Иванова Е.А.', 'Мухина Л.Н.', 'Соколова И.В.', 'Божко А.А.(девочки)/(мальчики)', 'Божко А.А./Божко А.А.', 'Божко А.А.(девочки)', 'Сулейманова А.В.', 'Сулейманова В.А.', 'Зона релсакации', 'зона релаксации', 'Харчева Е.А.', 'Горелова А.В', 'Панина Е.В./Гаврилова Н.Н.', 'Куражова Н.Ю./Матвеева Е.А.', 'Петровичева А.А./Корзина Ю.В.', 'Богданова Е.В./Смирнова Е.А.', 'Харчева Е.Н./Лебедеа Т.В.', 'Электив История: теория и практика Караваева В.А. дистанционно', 'Агеева А.Г  ', 'Истоцкая Н.Н.(девочки)', 'Николаева Т.В.(мальчики)', 'Крыскина К. А.', 'Коркина Н.А..', 'Шешуев Г.А.', 'Базовая И.Ю.', 'Торочкова А.А.', 'Ключникова К.А.', 'Сергеева А.Д.', 'Классный час', 'Вакансия Био', 'Малинина Д.А.', 'Мокина А.М.', 'Мурашкина С.В., Мухина Л.Н.', 'Мокина А.М', 'Мокина А.В.', 'Обществознание', '/Электив Компьютерная грамотност', 'Электив Химия: от простого к сложному', 'Чистякова Ю.О.:3', 'Твердохлеб К.К.', 'Чистякова Ю.О..', 'Истоцкая Н.Н.(обе группы)', 'Истоцкая Н.Н.(только группа Истоцкой Н.Н.)', 'Мурашкина С.В.', 'Истоцкая Н.Н.(только группа Истоцкой Н.Н.', 'Горинова Д.В', 'Смирнова К.В.', 'Истоцкая Н.Н.(обе группы.)', 'Ситников П.С.']
-
+teachersAll = [
+    "Тучанская В.В.", "Андриевская Н.И.", "Логинова О.П.", "Борзенина М.А.", "Цыб Т.В.",
+    "Морозова Ю.А.", "Петренко Н.С.", "Коротких А.И.", "Пилостаева А.О.", "Некрасова Н.В.",
+    "Семушина И.Л.", "Тараторина О.В.", "Шилова В.А.", "Стрелкова М.А.", "Кубык К.Р.",
+    "Попова М.С.", "Синева Т.А.", "Санникова Е.А.", "Кашина А.Ю.", "Корнилова В.В.",
+    "Абрамова Н.С.", "Илларионова В.П.", "Коргинова А.В.", "Павлова Я.М.", "Горбунова М.А.",
+    "Ларчина Т.В.", "Соколова Е.Е.", "Семочкина А.А.", "Ципилева Т.А.", "Шевченко А.А.",
+    "Фёдорова К.Р.", "Бесова Л.А.", "Бокарева А.А.", "Горбатович А.А.", "Рябкова С.Н.",
+    "Джанасова Н.Н.", "Кистанова Н.Л.", "Крылова Т.В.", "Пелевина Н.В.", "Гаджиева М.Г.",
+    "Яичкова М.М.", "Каронова С.Г.", "Филиппова Т.В.", "Савинова К.В.", "Комарова Л.А.",
+    "Бурмистрова О.Ю.", "Крутикова Я.В.", "Мокина И.Р.", "Царева М.А.", "Савина И.В.",
+    "Кузнецова М.А.", "Самсонова Т.М.", "Костина М.В.", "Хонина Е.А.", "Панина Е.В.",
+    "Петровичева А.А.", "Божко А.А.", "Балакшин Р.Н.", "Мащенка П.А.", "Богданова Е.В.",
+    "Ананьина И.К.", "Григорьева Д.А.", "Алексеева Т.В.", "Груздева И.Н.", "Проскурина Е.Н.",
+    "Постникова О.В.", "Гаврилова Н.Н.", "Смирнова Е.А.", "Ильиных И.В.", "Новичихина Т.С.",
+    "Патютько Е.А.", "Гордеев М.А.", "Коршунова Р.С.", "Харчева Е.Н.", "Соболева И.С.",
+    "Соболева Е.А.", "Чистякова Ю.О.", "Лебедева Т.В.", "Флегантова Н.С.", "Лясникова Н.Д.",
+    "Корзина Ю.В.", "Караваева В.А.", "Ананьина О.Н.", "Горинова Д.В.", "Васильев И.Н.",
+    "Щерба Е.Ю.", "Першичева Е.В.", "Петрова В.О.", "Агеева Л.Г.", "Матвева Е.А.",
+    "Туницкая О.Ю.", "Гаврилова О.В.", "Репкина А.В.", "Елисеева О.Г.", "Савинова О.В.",
+    "Заборихина Ю.Л.", "Ярулина В.Р.", "Васильева С.Н.", "Мащенко П.А.", "Соболева А.Н.",
+    "Куражова Н.Ю.", "Галова А.В.", "Синицына А.Н.", "Федорова Л.В.", "Манаев И.А.",
+    "Матвеева Е.А.", "Громова Т.В.", "Юсуфович С.А.", "Смирнова В.А.", "Лисоцкова О.Н.",
+    "Борзунова Ю.А.", "Ситников П.Л.", "Трифанова М.С.", "Горушкина А.В.", "Калиняк Л.В.",
+    "Иванова С.Г.", "Коробов А.В.", "Байрамова Л.С.", "Ефипова М.П.", "Кронштатова Е.А.",
+    "Синицина А.Н.", "Табунов И.А.", "Глухова О.А.", "Горинава Д.В.", "Кириллов А.А.",
+    "Качкина А.Н.", "Фёдоров М.Д.", "Неклюдова Е.А.", "Кукушкина А.А.", "Фёдорова М.Д.",
+    "Белякова О.С.", "Семушина И.А.", "Смирнов А.А.", "Разлетова В.В.", "Стеценко Н.Д.",
+    "Калиняк Л.Г.", "Завьялова А.Н.", "Феофанова Е.А.", "Горелова А.В.", "Мелкова Е.Ю.",
+    "Кушева Т.А.", "Елмалджиди Е.Г.", "Крыскина К.А.", "Истоцкая Н.Н.", "Николаева Т.В.",
+    "Нестерова В.И.", "Кочуева А.С.", "Мартынов П.С.", "Щукина О.И.", "Калёва В.В.",
+    "Череповецкий Н.З.", "Коковкина Е.С.", "Востокова А.С.", "Ситникова Я.В.", "Шведова А.А.",
+    "Андреева А.С.", "Кумбула М.С.", "Агапова М.М.", "Булычева А.А.", "Куракина О.Г.",
+    "Коптяева О.А.", "Короглуева А.И.", "Кузнецова Е.И.", "Петяева А.В.", "Угрюмова В.И.",
+    "Мартынив А.И.", "Черняева С.Е.", "Кривоборская В.А.", "Корзникова Ю.С.", "Лебедева Ю.А.",
+    "Елмаджиди Е.Г.", "Курникова П.В.", "Федорова К.Р.", "Овчинникова Т.В.", "Фомина Ю.И.",
+    "Коркина Н.А.", "Калева В.В.", "Хребтова А.Р.", "Мащенко М.П.", "Иванова Е.А.",
+    "Мухина Л.Н.", "Соколова И.В.", "Сулейманова А.В.", "Сулейманова В.А.", "Харчева Е.А.",
+    "Шешуев Г.А.", "Базовая И.Ю.", "Торочкова А.А.", "Ключникова К.А.", "Сергеева А.Д.",
+    "Малинина Д.А.", "Мокина А.М.", "Мокина А.В.", "Твердохлеб К.К.", "Мурашкина С.В.",
+    "Смирнова К.В.", "Ситников П.С.", "Шалаева С.А.", "Мышенкова Е.М.", "Грошевихин А.Н.",
+    "Маурашкина С.В.", "Мурашкина С.А.", "Недайводина П.И.", "Сошникова А.В.", "Колотыгина А.А.",
+    "Павлова О.В.", "Белова И.И.", "Карышева Е.А.", "Шандакова И.Л.", "Галстукова Е.И.",
+    "Маврова В.Е.", "Гаевская И.К.", "Черепанова М.Н.", "Очеленкова Т.В.", "Печкарева В.В.",
+    "Муращкина С.В.", "Егорова Е.А.", "Лазарева А.А.", "Печарева В.В."
+]
 
 global teachersAllIds
-teachersAllIds = ['222', '223', '224', '225', '226', '227', '228', '229', '230', '231', '232', '233', '234', '235', '236', '237', '238', '239', '240', '241', '242', '243', '244', '245', '246', '247', '248', '249', '250', '251', '252', '253', '254', '255', '256', '257', '258', '259', '260', '261', '262', '263', '264', '265', '266', '267', '268', '269', '270', '271', '272', '273', '274', '275', '276', '277', '278', '279', '280', '281', '282', '283', '284', '285', '286', '287', '288', '289', '290', '291', '292', '293', '294', '295', '296', '297', '298', '299', '300', '301', '302', '303', '304', '305', '306', '307', '308', '309', '310', '311', '312', '313', '314', '315', '316', '317', '318', '319', '320', '321', '322', '323', '324', '325', '326', '327', '328', '329', '330', '331', '332', '333', '334', '335', '336', '337', '338', '339', '340', '341', '342', '344', '345', '346', '348', '351', '354', '355', '356', '358', '359', '360', '361', '363', '366', '367', '368', '369', '371', '372', '373', '374', '376', '377', '378', '379', '380', '381', '382', '383', '384', '385', '387', '392', '393', '394', '395', '396', '397', '399', '400', '401', '402', '403', '404', '405', '408', '409', '412', '413', '414', '415', '416', '417', '418', '420', '427', '428', '432', '433', '434', '435', '436', '437', '438', '439', '440', '441', '442', '443', '444', '445', '446', '447', '448', '449', '450', '451', '452', '453', '454', '455', '456', '457', '458', '459', '460', '461', '462', '463', '464', '465', '466', '467', '468', '469', '470', '471', '472', '473', '474', '475', '476', '477', '478', '479', '480', '481', '482', '483', '484', '485', '486', '487', '488', '489', '490', '491', '492', '493', '494', '495', '496', '497', '498', '499', '500', '501', '502', '503', '504', '505', '506', '507', '508', '509', '510', '511', '512', '513', '514', '515', '516', '517', '518', '519', '520', '521', '522', '523', '524', '525', '526', '527', '528', '529', '530', '531', '532', '533', '534', '535', '536', '537', '538', '539', '540', '541', '542', '543', '544', '545', '546', '547', '548', '549', '550', '551', '552', '553', '554', '555', '556', '557', '558', '559', '560', '561', '562', '563', '564', '565', '566', '567', '568', '569', '570', '571', '572', '573', '574', '575', '576', '577', '578', '579', '580', '581', '582', '583', '584', '585', '586', '587', '588', '589', '590', '591', '592', '593', '594', '595', '596', '597', '598', '599', '600', '601', '602', '603', '604', '605', '606', '607', '608', '609', '610', '611', '612', '613', '614', '615', '616', '617', '618', '619', '620', '621', '622', '623', '624', '625', '626', '627', '628', '629', '630', '631', '632', '633', '634', '635', '636', '637', '638', '639', '640', '641', '642', '643', '644', '645', '646', '647', '648', '649', '650', '651', '652', '653', '654', '655', '656', '657', '658', '659', '660', '661', '662', '663', '664', '665', '666', '667', '668', '669']
+teachersAllIds = [
+    "222", "223", "224", "225", "226", "227", "228", "229", "230", "231", "232", "233", "234", "235", "236",
+    "237", "238", "239", "240", "241", "242", "244", "246", "247", "248", "249", "250", "251", "252", "253",
+    "254", "255", "256", "257", "259", "260", "261", "262", "263", "264", "265", "266", "267", "268", "269",
+    "270", "271", "272", "273", "274", "275", "276", "277", "278", "279", "280", "281", "282", "283", "284",
+    "285", "286", "287", "288", "289", "290", "291", "293", "294", "295", "296", "297", "298", "299", "300",
+    "301", "302", "303", "304", "305", "306", "307", "308", "309", "310", "311", "312", "313", "314", "315",
+    "316", "317", "318", "319", "320", "321", "322", "323", "324", "326", "327", "329", "330", "331", "332",
+    "333", "334", "335", "336", "337", "338", "339", "340", "341", "344", "346", "348", "351", "359", "360",
+    "384", "393", "394", "396", "399", "400", "401", "402", "403", "405", "408", "409", "412", "416", "468",
+    "470", "477", "504", "514", "515", "517", "518", "519", "520", "522", "523", "524", "525", "526", "527",
+    "528", "529", "530", "531", "532", "534", "535", "537", "538", "539", "540", "541", "542", "543", "544",
+    "545", "547", "548", "551", "553", "554", "555", "556", "557", "560", "574", "589", "590", "607", "621",
+    "622", "623", "627", "628", "631", "644", "645", "646", "647", "648", "651", "652", "655", "660", "664",
+    "667", "669", "679", "680", "681", "683", "687", "697", "711", "712", "713", "714", "715", "717", "718",
+    "719", "723", "727", "728", "733", "734", "739", "741", "752"
+]
 
 global url
 url = 'https://rasp.milytin.ru/search'
 
-bot = telebot.TeleBot('')
+bot = telebot.TeleBot('7889392387:AAF1L7JF39KpR0xpu7JR-lx2Ft7KSQjLv4I')
 
 
 def mainRaspUpdate():
@@ -167,13 +227,13 @@ raspCheck_thread = threading.Thread(target=mainRaspUpdate)
 raspCheck_thread.daemon = True
 raspCheck_thread.start()
 
-
 @bot.message_handler(commands=['postToAll23'])
 def post(message):
     bot.delete_message(message.chat.id, message.message_id)
     user_id = message.from_user.id
     if user_id == 6042204485 or user_id == 1374973615 or user_id == 5818281440:
-        conn = sqlite3.connect('ids.db')
+        shutil.copy('ids.db', 'ids2.db')
+        conn = sqlite3.connect('ids2.db')
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
@@ -290,7 +350,9 @@ def user_clas(message, clas, id):
     btn3 = types.KeyboardButton('Перезапустить')
     btn4 = types.KeyboardButton('Поменять класс')
     btn5 = types.KeyboardButton('Настройки')
-    markup.row(btn1)
+    btn6 = types.KeyboardButton('Сегодня')
+    btn7 = types.KeyboardButton('Завтра')
+    markup.row(btn6, btn1, btn7)
     markup.row(btn2, btn5, btn4)
     markup.row(btn3)
     bot.delete_message(chat_id = message.chat.id, message_id = message.message_id)
@@ -334,15 +396,27 @@ def settings(message):
     rows = cur.fetchall()
     clas = f'{rows}'
     clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+    cur.execute(f'SELECT teacher_exist FROM users WHERE id = {usid}')
+    teacher_exist = cur.fetchall()[0][0]
+    if teacher_exist == 0:
+        teacher_exist = '🔴'
+    else:
+        teacher_exist = '🟢'
+    cur.execute(f'SELECT autoSchedule FROM users WHERE id = {usid}')
+    autoShedule = cur.fetchall()[0][0]
+    if autoShedule == 0:
+        autoShedule = '🔴'
+    else:
+        autoShedule = '🟢'
     cur.close()
     conn.close()
     if clas == '':
         changeClas(message)
         return
     m = types.InlineKeyboardMarkup()
-    changeScheduleFormBut = types.InlineKeyboardButton('Поменять дизайн расписания', callback_data='changeScheduleForm')
-    changeTeacherExistBut = types.InlineKeyboardButton('Убрать/Добавить учителя в расписании', callback_data='changeTeacherExist')
-    changeAutoScheduleBut = types.InlineKeyboardButton('Авто-расписание', callback_data='changeAutoSchedule')
+    changeScheduleFormBut = types.InlineKeyboardButton('Дизайн расписания', callback_data='changeScheduleForm')
+    changeTeacherExistBut = types.InlineKeyboardButton(f'{teacher_exist}учителя в расписании', callback_data='changeTeacherExist')
+    changeAutoScheduleBut = types.InlineKeyboardButton(f'{autoShedule}Авто-расписание', callback_data='changeAutoSchedule')
     m.row(changeScheduleFormBut)
     m.row(changeTeacherExistBut)
     m.row(changeAutoScheduleBut)
@@ -426,6 +500,65 @@ def changeClas(message):
     bot.send_message(message.chat.id, 'Укажите ваш класс:', reply_markup=markup_inline)
 
 
+def send_rasp2(message, selectDate):
+    try:
+        infu = message.from_user.id
+        selectDate = selectDate.strftime('%Y-%m-%d')
+        shutil.copy("ids.db", "ids2.db")
+        conn = sqlite3.connect('ids2.db')
+        cur = conn.cursor()
+        cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name FROM users WHERE id = ?)", (infu,))
+        selectGroup = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        cur.execute(f'''SELECT schedule_form FROM users WHERE id = {infu}''')
+        schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {infu}''')
+        teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+        if teacher_exist == 'None':
+            cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', ('1', infu))
+            teacher_exist = '1'
+
+        if schedule_form == 'None':
+            cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', ('1', infu))
+            schedule_form = '1'
+        params = {
+            'selectGroup': selectGroup,
+            'selectTeacher': '222',
+            'selectPlace': '174',
+            'selectDate[]': selectDate,
+            'type': 'group'
+        }
+        response = requests.get(url, params=params)
+        data_str = response.json()
+        data = json.loads(data_str)
+        if schedule_form == '1':
+            message = []
+            for item in data[0]:
+                for lesson in item:
+                    if teacher_exist == '1':
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                    elif teacher_exist == '0':
+                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
+            createImage(message, infu, teacher_exist)
+            with open(f'img/table{infu}.jpg', 'rb') as photo:
+                bot.send_photo(infu, photo, selectDate)
+        else:
+            message = ''
+            for item in data[0]:
+                for lesson in item:
+                    if teacher_exist == '1':
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                    elif teacher_exist == '0':
+                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+            bot.send_message(infu, f'Расписание на {selectDate}\n{message}')
+
+        cur.close()
+        conn.close()
+
+    except IndexError:
+        bot.send_message(infu, "Расписание ещё не выложили!")
+
+
+
 @bot.message_handler(func=lambda message: True)
 def on_click(message):
     if message.text == 'Расписание':
@@ -444,14 +577,20 @@ def on_click(message):
         bot.delete_message(message.chat.id, message.message_id)
         changeClas(message)
 
+    elif message.text == 'Сегодня':
+        send_rasp2(message, datetime.datetime.now())
+
+    elif message.text == 'Завтра':
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        send_rasp2(message, selectDate)
+
     elif message.text.lower() == 'разработчик':
         bot.send_message(message.chat.id, 'Сие творение создал Григорий и моральную помощь оказывал его юный подаван Владимир\nГригорий: @FIVE_HH, 89110483340(кому не сложно скиньте денег)\nВладимир: @Discketaa, 89216874164\nЕсли вы увидели это сообщение, то обязаны нам написать или позвонить!')
 
     elif message.text.lower() == 'владимир путин':
         bot.send_message(message.chat.id, 'Молодец!\nПолитик, лидер и боец!')
 
-    elif message.text.lower() == 'великолепно':
-        bot.send_message(message.chat.id, 'В этот великолепный день, доделался этот великолепный бот, как-же это великолепно!')
 
 
 def createImage(message, id, teacher_exist):
@@ -473,12 +612,12 @@ def createImage(message, id, teacher_exist):
     table = Table(data)
     table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'CustomFont'),
         ('FONTNAME', (0, 1), (-1, -1), 'CustomFont'),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
         ('GRID', (0, 0), (-1, -1), 1, colors.black)
     ]))
 
@@ -512,7 +651,7 @@ def createImage(message, id, teacher_exist):
                     if y > max_y:
                         max_y = y
 
-        cropped_img = img.crop((min_x, min_y, max_x + 1, max_y + 1))
+        cropped_img = img.crop((min_x + 1, min_y + 7, max_x - 5, max_y))
         cropped_img = cropped_img.convert("RGB")
         cropped_img.save(f"img/table{id}.jpg")
 
@@ -630,6 +769,22 @@ def clasrasp(call):
         bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = 'Выберите букву:', reply_markup=markup_inline)
         buttons_11.clear()
 
+    def search(message):
+        global teachersAll, teachersAllIds
+        msg = message.text
+        buttons_12 = []
+        buttons_height = 10
+        inline_2 = types.InlineKeyboardMarkup(row_width=2)
+        for teacher in teachersAll:
+            if msg.lower() in teacher.lower():
+                button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'G')
+                buttons_12.append(button)
+        if (buttons_12 != []):
+            inline_2.add(*buttons_12)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя:', reply_markup=inline_2)
+        else:
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Учитель не найден(')
+
     def generate_keyboard():
         user_id = call.from_user.id
         conn = sqlite3.connect('ids.db')
@@ -642,13 +797,15 @@ def clasrasp(call):
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
-        back_button = types.InlineKeyboardButton(text='←', callback_data='back')
-        next_button = types.InlineKeyboardButton(text='→', callback_data='next')
+        back_button = types.InlineKeyboardButton(text='⬅️', callback_data='back')
+        next_button = types.InlineKeyboardButton(text='➡️', callback_data='next')
+        search_button = types.InlineKeyboardButton(text='Найти учителя', callback_data='search')
         for teacher in teachersAll[buttons_height * (page - 1): page*buttons_height:]:
             teacher_but = button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'G')
             teachers.append(teacher_but)
         inline.add(*teachers)
         inline.add(back_button, next_button)
+        inline.add(search_button)
         return inline
 
     if call.data == 'back' and page != 1:
@@ -677,6 +834,10 @@ def clasrasp(call):
         conn.close()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Выберите учителя: \nСтраница {page}', reply_markup=generate_keyboard())
 
+    elif call.data == 'search':
+        msg = bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=f'Напишите фамилию или начало фамилии учителя:')
+        bot.register_next_step_handler(msg, search)
+
     if call.data == 'Teach':
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Выберите учителя:', reply_markup=generate_keyboard())
 
@@ -692,8 +853,8 @@ def clasrasp(call):
         teachers = []
         buttons_height = 10
         inline = types.InlineKeyboardMarkup(row_width=2)
-        back_button = types.InlineKeyboardButton(text='←', callback_data='backH')
-        next_button = types.InlineKeyboardButton(text='→', callback_data='nextH')
+        back_button = types.InlineKeyboardButton(text='⬅️', callback_data='backH')
+        next_button = types.InlineKeyboardButton(text='➡️', callback_data='nextH')
         for teacher in teachersAll[buttons_height * (page - 1): page*buttons_height:]:
             teacher_but = button = types.InlineKeyboardButton(text=teacher, callback_data=teacher + 'C')
             teachers.append(teacher_but)
@@ -748,17 +909,14 @@ def clasrasp(call):
         conn.close()
         next_message_rasp_teach(call)
 
-    if call.data == 'Сегодня':
+
+    def send_rasp(messages, selectDate, req, user_id):
         try:
-            selectDate = datetime.datetime.now()
-            selectDate = selectDate.strftime('%Y-%m-%d')
+            global teacher
+            page = 1
             conn = sqlite3.connect('ids.db')
             cur = conn.cursor()
-            user_id = call.from_user.id
-            cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
-            selectGroup = cur.fetchall()
-            selectGroup = str(selectGroup)
-            selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+            selectDate = selectDate.strftime('%Y-%m-%d')
             cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
             schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
             cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
@@ -771,16 +929,36 @@ def clasrasp(call):
                 cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, user_id))
                 schedule_form = '1'
 
+            if req == 0:
+                cur.execute("SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
+                selectGroup = cur.fetchall()
+                selectGroup = str(selectGroup)
+                selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+                params = {
+                    'selectGroup': selectGroup,
+                    'selectTeacher': '222',
+                    'selectPlace': '174',
+                    'selectDate[]': selectDate,
+                    'type': 'group'
+                }
+
+            elif req == 1:
+                cur.execute("SELECT teacher_id FROM teachers WHERE teacher_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
+                selectTeacher = cur.fetchall()
+                selectTeacher = str(selectTeacher)
+                selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
+                cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
+                params = {
+                    'selectGroup': '215',
+                    'selectTeacher': selectTeacher,
+                    'selectPlace': '174',
+                    'selectDate[]': selectDate,
+                    'type': 'teacher'
+                }
+
             conn.commit()
             cur.close()
             conn.close()
-            params = {
-                'selectGroup': selectGroup,
-                'selectTeacher': '222',
-                'selectPlace': '174',
-                'selectDate[]': selectDate,
-                'type': 'group'
-            }
             response = requests.get(url, params=params)
             data_str = response.json()
             data = json.loads(data_str)
@@ -789,181 +967,87 @@ def clasrasp(call):
                 for item in data[0]:
                     for lesson in item:
                         if teacher_exist == '1':
-                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                            if req == 0:
+                                message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
+                            else:
+                                message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"])
                         elif teacher_exist == '0':
                             message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id, teacher_exist)
-                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
-                    bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo, selectDate)
+                createImage(message, messages.chat.id, teacher_exist)
+                with open(f'img/table{messages.chat.id}.jpg', 'rb') as photo:
+                    bot.delete_message(messages.chat.id, messages.message_id)
+                    bot.send_photo(messages.chat.id, photo, selectDate)
             else:
                 message = ''
                 for item in data[0]:
                     for lesson in item:
                         if teacher_exist == '1':
-                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                            if req == 0:
+                                message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                            else:
+                                message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
                         elif teacher_exist == '0':
-                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
+                            if req == 0:
+                                message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                            else:
+                                message += lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
+                bot.edit_message_text(chat_id = messages.chat.id, message_id = messages.message_id, text = f'Расписание на {selectDate}\n{message}')
         except IndexError:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
+            bot.edit_message_text(chat_id=messages.chat.id, message_id=messages.message_id, text='Расписание ещё не выложили!')
+
+
+    if call.data == 'Сегодня':
+        send_rasp(call.message, datetime.datetime.now(), 0, call.from_user.id)
 
 
     elif call.data == 'Завтра':
-        try:
-            selectDate = datetime.datetime.now()
-            selectDate = selectDate + datetime.timedelta(days=1)
-            selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
-            user_id = call.from_user.id
-            cur.execute('''SELECT class_id FROM classes WHERE class_name = (SELECT class_name_temp FROM users WHERE id = ?)''', (user_id, ))
-            selectGroup = cur.fetchall()[0]
-            selectGroup= str(selectGroup)
-            selectGroup = selectGroup.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
-            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            cur.execute(f'''SELECT teacher_exist FROM users WHERE id = {user_id}''')
-            teacher_exist = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            if teacher_exist == 'None':
-                cur.execute('UPDATE users SET teacher_exist = ? WHERE id = ?', (1, user_id))
-                teacher_exist = '1'
-
-            if schedule_form == 'None':
-                cur.execute('UPDATE users SET schedule_form = ? WHERE id = ?', (1, user_id))
-                schedule_form = '1'
-
-            conn.commit()
-            cur.close()
-            conn.close()
-            params = {
-                'selectGroup': selectGroup,
-                'selectTeacher': '222',
-                'selectPlace': '174',
-                'selectDate[]': selectDate,
-                'type': 'group'
-            }
-            response = requests.get(url, params=params)
-            data_str = response.json()
-            data = json.loads(data_str)
-            if schedule_form == '1':
-                message = []
-                for item in data[0]:
-                    for lesson in item:
-                        if teacher_exist == '1':
-                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"])
-                        elif teacher_exist == '0':
-                            message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id, teacher_exist)
-                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
-                    bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo, selectDate)
-            else:
-                message = ''
-                for item in data[0]:
-                    for lesson in item:
-                        if teacher_exist == '1':
-                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["teacher"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                        elif teacher_exist == '0':
-                            message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
-        except IndexError:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        send_rasp(call.message, selectDate, 0, call.from_user.id)
 
     if call.data == 'СегодняTE':
-        try:
-            page = 1
-            selectDate = datetime.datetime.now()
-            selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
-            user_id = call.from_user.id
-            cur.execute("SELECT teacher_id FROM teachers WHERE teacher_name = (SELECT class_name_temp FROM users WHERE id = ?)", (user_id,))
-            selectTeacher = cur.fetchall()
-            selectTeacher = str(selectTeacher)
-            selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
-            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            conn.commit()
-            cur.close()
-            conn.close()
-            params = {
-                'selectGroup': '215',
-                'selectTeacher': selectTeacher,
-                'selectPlace': '174',
-                'selectDate[]': selectDate,
-                'type': 'teacher'
-            }
-            response = requests.get(url, params=params)
-            data_str = response.json()
-            data = json.loads(data_str)
-            if schedule_form == '1':
-                message = []
-                for item in data[0]:
-                    for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id, '1')
-                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
-                    bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo)
-            else:
-                message = ''
-                for item in data[0]:
-                    for lesson in item:
-                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
-        except IndexError:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
+        send_rasp(call.message, datetime.datetime.now(), 1, call.from_user.id)
 
 
     elif call.data == 'ЗавтраTE':
-        try:
-            page = 1
-            selectDate = datetime.datetime.now()
-            selectDate = selectDate + datetime.timedelta(days=1)
-            selectDate = selectDate.strftime('%Y-%m-%d')
-            conn = sqlite3.connect('ids.db')
-            cur = conn.cursor()
-            user_id = call.from_user.id
-            cur.execute(
-                "SELECT teacher_id FROM teachers WHERE teacher_name = (SELECT class_name_temp FROM users WHERE id = ?)",
-                (user_id,))
-            selectTeacher = cur.fetchall()
-            selectTeacher = str(selectTeacher)
-            selectTeacher = selectTeacher.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(
-                ",", "").replace("'", "").replace("'", "")
-            cur.execute(f'''SELECT schedule_form FROM users WHERE id = {user_id}''')
-            schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
-            conn.commit()
-            cur.close()
-            conn.close()
-            params = {
-                'selectGroup': '215',
-                'selectTeacher': selectTeacher,
-                'selectPlace': '174',
-                'selectDate[]': selectDate,
-                'type': 'teacher'
-            }
-            response = requests.get(url, params=params)
-            data_str = response.json()
-            data = json.loads(data_str)
-            if schedule_form == '1':
-                message = []
-                for item in data[0]:
-                    for lesson in item:
-                        message.append(lesson["time"] + ' | ' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"])
-                createImage(message, call.message.chat.id, '1')
-                with open(f'img/table{call.message.chat.id}.jpg', 'rb') as photo:
-                    bot.delete_message(call.message.chat.id, call.message.message_id)
-                    bot.send_photo(call.message.chat.id, photo)
-            else:
-                message = ''
-                for item in data[0]:
-                    for lesson in item:
-                        message += lesson["time"] + '\n' + lesson["discipline"] + ' | ' + lesson["group"] + ' | ' + lesson["place"] + '\n' + '-' + '\n'
-                bot.edit_message_text(chat_id = call.message.chat.id, message_id = call.message.message_id, text = f'Расписание на {selectDate}\n{message}')
-        except IndexError:
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Расписание ещё не выложили!')
+        selectDate = datetime.datetime.now()
+        selectDate = selectDate + datetime.timedelta(days=1)
+        send_rasp(call.message, selectDate, 1, call.from_user.id)
+
+
+    def edit_settings():
+        conn = sqlite3.connect('ids.db')
+        cur = conn.cursor()
+        usid = call.from_user.id
+        cur.execute(f'SELECT class_name FROM users WHERE id = {usid}')
+        rows = cur.fetchall()
+        clas = f'{rows}'
+        clas = clas.replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace("'", "").replace("'", "").replace(",", "")
+        cur.execute(f'SELECT teacher_exist FROM users WHERE id = {usid}')
+        teacher_exist = cur.fetchall()[0][0]
+        if teacher_exist == 0:
+            teacher_exist = '🔴'
+        else:
+            teacher_exist = '🟢'
+        cur.execute(f'SELECT autoSchedule FROM users WHERE id = {usid}')
+        autoShedule = cur.fetchall()[0][0]
+        if autoShedule == 0:
+            autoShedule = '🔴'
+        else:
+            autoShedule = '🟢'
+        cur.close()
+        conn.close()
+        if clas == '':
+            changeClas(message)
+            return
+        m = types.InlineKeyboardMarkup()
+        changeScheduleFormBut = types.InlineKeyboardButton('Дизайн расписания', callback_data='changeScheduleForm')
+        changeTeacherExistBut = types.InlineKeyboardButton(f'{teacher_exist}учителя в расписании', callback_data='changeTeacherExist')
+        changeAutoScheduleBut = types.InlineKeyboardButton(f'{autoShedule}Авто-расписание', callback_data='changeAutoSchedule')
+        m.row(changeScheduleFormBut)
+        m.row(changeTeacherExistBut)
+        m.row(changeAutoScheduleBut)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text='Возможные опции:', reply_markup=m)
 
 
     if call.data == 'changeScheduleForm':
@@ -982,7 +1066,7 @@ def clasrasp(call):
         cur.close()
         conn.close()
 
-    if call.data == 'changeTeacherExist':
+    elif call.data == 'changeTeacherExist':
         conn = sqlite3.connect('ids.db')
         cur = conn.cursor()
         user_id = call.from_user.id
@@ -990,15 +1074,14 @@ def clasrasp(call):
         schedule_form = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
         if schedule_form == '1':
             cur.execute('''UPDATE users SET teacher_exist = ? WHERE id = ?''', (0, user_id))
-            bot.send_message(call.message.chat.id, 'Теперь в расписании не будет указываться учитель!')
         else:
             cur.execute('''UPDATE users SET teacher_exist = ? WHERE id = ?''', (1, user_id))
-            bot.send_message(call.message.chat.id, 'Теперь в расписании будет указываться учитель!')
         conn.commit()
         cur.close()
         conn.close()
+        edit_settings()
 
-    if call.data == 'changeAutoSchedule':
+    elif call.data == 'changeAutoSchedule':
         conn = sqlite3.connect('ids.db')
         cur = conn.cursor()
         user_id = call.from_user.id
@@ -1006,13 +1089,12 @@ def clasrasp(call):
         autoSchedule = str(cur.fetchall()).replace("[", "").replace("]", "").replace("(", "").replace(")", "").replace(",", "").replace("'", "").replace("'", "")
         if autoSchedule == '1':
             cur.execute('''UPDATE users SET autoSchedule = ? WHERE id = ?''', (0, user_id))
-            bot.send_message(call.message.chat.id, 'Рассылка расписания отключена!')
         else:
             cur.execute('''UPDATE users SET autoSchedule = ? WHERE id = ?''', (1, user_id))
-            bot.send_message(call.message.chat.id, 'Рассылка расписания включена!')
         conn.commit()
         cur.close()
         conn.close()
+        edit_settings()
 
     if call.data == '5P':
         buttons_five = []
@@ -1100,4 +1182,3 @@ try:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
 except:
     bot.infinity_polling(timeout=10, long_polling_timeout = 5, skip_pending=True)
-
